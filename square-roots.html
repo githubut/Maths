@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Square Root Speed: Master the Logic</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0b1120;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --card-bg: #1e293b;
+            --accent-1: #38bdf8;
+            --accent-2: #818cf8;
+            --accent-3: #f472b6;
+            --accent-4: #fbbf24;
+            --success: #34d399;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(at 0% 100%, rgba(52, 211, 153, 0.1) 0 transparent 50%), 
+                radial-gradient(at 100% 0%, rgba(56, 189, 248, 0.1) 0 transparent 50%);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        header {
+            text-align: center;
+            padding: 6rem 2rem 2rem;
+            position: relative;
+            max-width: 800px;
+        }
+
+        h1 {
+            font-size: 3.8rem;
+            margin: 0;
+            background: linear-gradient(135deg, var(--success), var(--accent-1));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            line-height: 1.1;
+        }
+
+        p.subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-top: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 95%;
+            padding: 2rem 0 6rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        .trick-card {
+            background-color: var(--card-bg);
+            border-radius: 24px;
+            padding: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .theory-section { text-align: center; }
+        .trick-number { font-size: 1.2rem; color: var(--success); font-weight: 800; text-transform: uppercase; margin-bottom: 0.5rem; }
+        .trick-title { font-size: 2.2rem; font-weight: 800; color: #fff; }
+
+        .teacher-box {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border-left: 4px solid var(--accent-1);
+            text-align: left;
+            margin-top: 1rem;
+        }
+        .teacher-box p { margin: 0; font-size: 1.05rem; line-height: 1.6; color: #cbd5e1; font-style: italic; }
+
+        .practical-section {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 20px;
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .example-header {
+            font-size: 1.1rem; color: var(--success); margin-bottom: 2rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px;
+            background: rgba(52, 211, 153, 0.1); padding: 8px 24px; border-radius: 50px;
+        }
+
+        .steps-container { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; width: 100%; }
+
+        .math-stack {
+            display: flex; flex-direction: column; align-items: center; background: rgba(0,0,0,0.3);
+            padding: 1.5rem; border-radius: 16px; min-width: 170px; flex: 1;
+        }
+
+        .stack-row { font-family: monospace; font-size: 2.2rem; font-weight: 800; color: #fff; }
+        .step-desc { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; margin-top: 10px; font-weight: 800; }
+        .step-calc { font-size: 1.1rem; color: #fff; margin-top: 8px; font-weight: 800; background: var(--card-bg); padding: 5px 12px; border-radius: 8px; }
+        .step-hint { font-size: 0.75rem; color: #94a3b8; margin-top: 10px; line-height: 1.4; text-align: center; font-style: italic; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 8px; }
+
+        .final-result { 
+            font-size: 4rem; font-weight: 800; color: var(--success); 
+            background: rgba(52, 211, 153, 0.05); padding: 10px 40px; border-radius: 20px; border: 1px solid rgba(52, 211, 153, 0.2);
+            text-shadow: 0 0 30px rgba(52, 211, 153, 0.3); margin-top: 2rem;
+            text-align: center;
+        }
+
+        .pinned-card { border: 2px solid var(--success); box-shadow: 0 0 40px rgba(52, 211, 153, 0.2); }
+
+        .back-link { position: absolute; top: 2rem; left: 2rem; color: var(--text-muted); text-decoration: none; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+        .back-link:hover { color: #fff; }
+
+        .hl-green { color: var(--success); }
+        .hl-blue { color: var(--accent-1); }
+
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="back-link">← Hub</a>
+
+    <header>
+        <h1>Square Root Speed</h1>
+        <p class="subtitle">Extract roots in under 3 seconds. Use the "Pinned Universal" method for perfect squares and specialized offsets for rapid estimation.</p>
+    </header>
+
+    <div class="container">
+
+        <!-- Universal Pinned Method -->
+        <div class="trick-card pinned-card">
+            <div class="theory-section">
+                <div class="trick-number">The Pinned Universal Method</div>
+                <div class="trick-title">The "Last to First" Speed Run</div>
+                <div class="teacher-box">
+                    <p>"This is the fastest possible way to find perfect roots. It uses 'Base Anchors' (20, 30, 40...) to set the range and the 'Last Digit' to find the finish. No formula required, just pure observation!"</p>
+                </div>
+            </div>
+
+            <div class="practical-section">
+                <div class="example-header">Problem: √1849</div>
+                <div class="steps-container">
+                    <div class="math-stack">
+                        <div class="stack-row">...<span class="hl-green">9</span></div>
+                        <div class="step-desc">1. Last Digit</div>
+                        <div class="step-calc">3 or 7</div>
+                        <div class="step-hint">Square ends in 9. So the root must end in 3 or 7.</div>
+                    </div>
+                    <div class="math-stack">
+                        <div class="step-desc">2. Nearest Base</div>
+                        <div class="step-calc">40² = 1600</div>
+                        <div class="step-hint">1849 is just above 1600. So the first digit is 4.</div>
+                    </div>
+                    <div class="math-stack">
+                        <div class="step-desc">3. Decision</div>
+                        <div class="step-calc">43 or 47?</div>
+                        <div class="step-hint">1849 is much closer to 1600 than 2500 (50²). So it's 43!</div>
+                    </div>
+                </div>
+                <div class="final-result">43</div>
+            </div>
+        </div>
+
+        <!-- Method 02: The Zero-Step Speed Run -->
+        <div class="trick-card">
+            <div class="theory-section">
+                <div class="trick-number">Method 02 (High Speed)</div>
+                <div class="trick-title">The "Zero-Step" Speed Run</div>
+                <div class="teacher-box">
+                    <p>"For huge roots, ignore the trailing zeros! Just find the root of the first part and add half the number of zeros back. It’s the ultimate time-saver for large multiples of 10."</p>
+                </div>
+            </div>
+
+            <div class="practical-section">
+                <div class="example-header">Problem: √14,400</div>
+                <div class="steps-container">
+                    <div class="math-stack">
+                        <div class="stack-row"><span class="hl-blue">144</span>...</div>
+                        <div class="step-desc">1. Base Root</div>
+                        <div class="step-calc">√144 = 12</div>
+                        <div class="step-hint">Ignore the zeroes and find the square root of the primary number.</div>
+                    </div>
+                    <div class="math-stack">
+                        <div class="stack-row">...<span class="hl-green">00</span></div>
+                        <div class="step-desc">2. Zero Count</div>
+                        <div class="step-calc">2 Zeros → 1 Zero</div>
+                        <div class="step-hint">When you square root, the number of trailing zeros is cut in half.</div>
+                    </div>
+                </div>
+                <div class="final-result">120</div>
+            </div>
+        </div>
+
+        <!-- Method 02: Near 50 Offset -->
+        <div class="trick-card">
+            <div class="theory-section">
+                <div class="trick-number">Method 03 (The "Hundredths" Trick)</div>
+                <div class="trick-title">Proximity to 50 Offset</div>
+                <div class="teacher-box">
+                    <p>"When a number is near 2500 (like 2700 or 2300), we can estimate the root in a heartbeat. For every 100 units away from 2500, the root moves by exactly 1!"</p>
+                </div>
+            </div>
+
+            <div class="practical-section">
+                <div class="example-header">Problem: √2800 (Approx)</div>
+                <div class="steps-container">
+                    <div class="math-stack">
+                        <div class="step-desc">1. Base Offset</div>
+                        <div class="step-calc">2800 - 2500 = 300</div>
+                        <div class="step-hint">Find how far the number is from the 'Magic 50 Base' (2500).</div>
+                    </div>
+                    <div class="math-stack">
+                        <div class="step-desc">2. Scale by 100</div>
+                        <div class="step-calc">300 / 100 = 3</div>
+                        <div class="step-hint">For every 100 units, add 1 to the base of 50.</div>
+                    </div>
+                    <div class="math-stack">
+                        <div class="step-desc">3. Add to 50</div>
+                        <div class="step-calc">50 + 3</div>
+                        <div class="step-hint">Since it's 300 above, the root is roughly 53.</div>
+                    </div>
+                </div>
+                <div class="final-result">~53</div>
+            </div>
+        </div>
+
+        <!-- Method 2: Non-Perfect Estimation -->
+        <div class="trick-card">
+            <div class="theory-section">
+                <div class="trick-number">Method 04 (Universal)</div>
+                <div class="trick-title">Estimation Formula</div>
+                <div class="teacher-box">
+                    <p>"Square roots of non-perfect numbers don't have to be a mystery. Find the nearest square, and use this simple correction: Root ≈ Perfect Root + (Difference / 2 × Perfect Root)."</p>
+                </div>
+            </div>
+
+            <div class="practical-section">
+                <div class="example-header">Problem: √40 (Approx)</div>
+                <div class="steps-container">
+                    <div class="math-stack">
+                        <div class="step-desc">1. Nearest Square</div>
+                        <div class="step-calc">√36 = 6</div>
+                        <div class="step-hint">36 is the closest perfect square below 40. Our base is 6.</div>
+                    </div>
+                    <div class="math-stack">
+                        <div class="step-desc">2. The Gap</div>
+                        <div class="step-calc">40 - 36 = 4</div>
+                        <div class="step-hint">40 is 4 units away from our base square.</div>
+                    </div>
+                    <div class="math-stack">
+                        <div class="step-desc">3. The Fraction</div>
+                        <div class="step-calc">4 / (2 × 6)</div>
+                        <div class="step-answer">4 / 12 = 0.33</div>
+                        <div class="step-hint">Divide the gap (4) by double the base (12).</div>
+                    </div>
+                </div>
+                <div class="final-result">6.33</div>
+            </div>
+        </div>
+
+        <!-- Method 3: The "Five-End" Roots -->
+        <div class="trick-card">
+            <div class="theory-section">
+                <div class="trick-number">Method 05</div>
+                <div class="trick-title">Roots ending in 25</div>
+                <div class="teacher-box">
+                    <p>"If a square ends in 25, the root ALWAYS ends in 5. To find the first digit, find the two consecutive numbers that multiply to the first part."</p>
+                </div>
+            </div>
+
+            <div class="practical-section">
+                <div class="example-header">Problem: √5625</div>
+                <div class="steps-container">
+                    <div class="math-stack">
+                        <div class="stack-row"><span class="hl-blue">56</span><span style="opacity:0.2">25</span></div>
+                        <div class="step-desc">1. Consecutive Pair</div>
+                        <div class="step-calc">7 × 8 = 56</div>
+                        <div class="step-hint">What two numbers in a row multiply to 56? (7 and 8).</div>
+                    </div>
+                    <div class="math-stack">
+                        <div class="stack-row"><span style="opacity:0.2">56</span><span class="hl-green">25</span></div>
+                        <div class="step-desc">2. Unit Digit</div>
+                        <div class="step-calc">√25 = 5</div>
+                        <div class="step-hint">Every square ending in 25 has a root ending in 5.</div>
+                    </div>
+                </div>
+                <div class="merge-arrow">↓ Take the smaller (7) and the 5</div>
+                <div class="final-result">75</div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

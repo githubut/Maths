@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maths Multiplication: 8 Magic Tricks</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0b1120;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --card-bg: #1e293b;
+            --accent-1: #38bdf8;
+            --accent-2: #818cf8;
+            --accent-3: #f472b6;
+            --accent-4: #fbbf24;
+            --success: #34d399;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.15) 0 transparent 50%), 
+                radial-gradient(at 100% 100%, rgba(244, 114, 182, 0.15) 0 transparent 50%);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        header {
+            text-align: center;
+            padding: 5rem 2rem 2rem;
+            position: relative;
+            max-width: 800px;
+        }
+
+        h1 {
+            font-size: 3.8rem;
+            margin: 0;
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-3));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            line-height: 1.1;
+        }
+
+        p.subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-top: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 95%;
+            padding: 3rem 0 5rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+
+        /* Card Styles */
+        .trick-card {
+            background-color: var(--card-bg);
+            border-radius: 24px;
+            padding: 3rem;
+            position: relative;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .theory-section { text-align: center; max-width: 800px; margin: 0 auto; }
+        .trick-number { font-size: 1.2rem; color: var(--accent-2); font-weight: 800; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 2px; }
+        .trick-title { font-size: 2.2rem; font-weight: 800; margin-bottom: 1.5rem; color: #fff; line-height: 1.2; }
+
+        .teacher-box {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin: 1rem auto 0;
+            position: relative;
+            border-left: 4px solid var(--success);
+            text-align: left;
+        }
+        .teacher-box p { margin: 0; font-size: 1.05rem; line-height: 1.6; color: #cbd5e1; font-style: italic; }
+
+        /* Step Layout System */
+        .practical-section {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 20px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .example-header {
+            font-size: 1.1rem; color: var(--accent-1); margin-bottom: 2rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; text-align: center;
+            background: rgba(56, 189, 248, 0.1); padding: 8px 24px; border-radius: 50px; border: 1px solid rgba(56, 189, 248, 0.2);
+        }
+
+        .steps-container {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .math-stack {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(0,0,0,0.3);
+            padding: 1.5rem;
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.03);
+            min-width: 160px;
+            flex: 1;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .stack-row {
+            font-family: monospace;
+            font-size: 2.5rem;
+            letter-spacing: 10px;
+            font-weight: 800;
+            line-height: 1.2;
+            color: #fff;
+            padding-left: 10px; /* offset for letter spacing */
+        }
+        .stack-row.hl-line {
+            border-bottom: 3px solid rgba(255,255,255,0.2);
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+        }
+
+        .hl-pink { color: var(--accent-3); text-shadow: 0 0 15px rgba(244,114,182,0.4); }
+        .hl-yellow { color: var(--accent-4); text-shadow: 0 0 15px rgba(251,191,36,0.4); }
+        .hl-blue { color: var(--accent-1); text-shadow: 0 0 15px rgba(56,189,248,0.4); }
+        .hl-muted { color: var(--text-muted); opacity: 0.3; }
+
+        .step-desc { font-size: 0.9rem; color: var(--text-muted); text-transform: uppercase; margin-top: 10px; font-weight: 800; text-align: center;}
+        .step-calc { font-size: 1.3rem; color: #fff; margin-top: 8px; font-weight: 800; background: var(--card-bg); padding: 5px 15px; border-radius: 8px; text-align: center; border: 1px solid rgba(255,255,255,0.05); }
+        .step-carry { font-size: 0.85rem; color: var(--accent-4); margin-top: 8px; font-weight: 600; text-align: center;}
+        .step-answer { font-size: 1rem; color: var(--success); margin-top: 8px; font-weight: 600; text-align: center; }
+        .step-hint { font-size: 0.8rem; color: #94a3b8; margin-top: 10px; line-height: 1.4; text-align: center; font-style: italic; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 8px; width: 100%; }
+
+        /* Connectors */
+        .merge-arrow {
+            width: 100%;
+            text-align: center;
+            font-size: 2rem;
+            color: var(--text-muted);
+            margin: 1.5rem 0 0.5rem;
+        }
+
+        .final-result { 
+            font-size: 4rem; 
+            font-weight: 800; 
+            color: var(--success); 
+            text-shadow: 0 0 30px rgba(52, 211, 153, 0.4); 
+            text-align:center; 
+            background: rgba(52, 211, 153, 0.05);
+            padding: 10px 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(52, 211, 153, 0.2);
+        }
+
+        .expandable { display: none; }
+        .expandable.show { display: flex; animation: fadeIn 0.4s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .expand-btn {
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--accent-1);
+            border: 1px dashed var(--accent-1);
+            padding: 15px 30px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.2s;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            align-items: center;
+            margin: 0 auto;
+            width: 100%;
+            max-width: 400px;
+        }
+        .expand-btn:hover { background: rgba(56, 189, 248, 0.2); transform: translateY(-2px); }
+        .expand-btn.active { background: rgba(244, 114, 182, 0.1); color: var(--accent-3); border-color: var(--accent-3); }
+
+        .back-link {
+            position: absolute;
+            top: 2rem; left: 2rem; color: var(--text-muted); text-decoration: none; font-weight: 600; display: flex; align-items: center; gap: 8px; transition: color 0.3s;
+        }
+        .back-link:hover { color: #fff; }
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="back-link">← Hub</a>
+
+    <header>
+        <h1>Master Mental Multiplication</h1>
+        <p class="subtitle">8 Magical, pattern-based shortcuts. Multiplication isn't about memorizing massive grids—it's about spotting the secret relationships between digits.</p>
+    </header>
+
+    <div class="container">
+
+        <!-- Method 1 (UNIVERSAL) -->
+        <div class="trick-card" style="border-width: 2px; border-color: var(--accent-2);">
+            <div class="theory-section">
+                <div class="trick-number">Method 01 (The Core)</div>
+                <div class="trick-title">Universal Cross-Multiplication</div>
+                <div class="teacher-box">
+                    <p>"No patterns? No problem. The Vedic 'Bowtie' method works for ANY digit combination: Multiply vertically outer, criss-cross & add the middle. We calculate left-to-right or right-to-left in a single line! Look at the colored columns below to see exactly what digits to pair."</p>
+                </div>
+            </div>
+
+            <!-- 2 DIGIT -->
+            <div class="practical-section">
+                <div class="example-header">2-Digit Base: 23 × 12</div>
+                <div class="steps-container">
+                    <div class="math-stack">
+                        <div class="stack-row"><span class="hl-muted">2</span><span class="hl-pink">3</span></div>
+                        <div class="stack-row hl-line"><span class="hl-muted">1</span><span class="hl-pink">2</span></div>
+                        <div class="step-desc">1. Vertical Right</div>
+                        <div class="step-calc">3 × 2</div>
+                        <div class="step-answer">Writes: _ _ 6</div>
+                        <div class="step-hint">Multiply the last digits on the right side. This gives us the ones place.</div>
+                    </div>
+                    <div class="math-stack">
+                        <div class="stack-row"><span class="hl-yellow">2</span><span class="hl-yellow">3</span></div>
+                        <div class="stack-row hl-line"><span class="hl-yellow">1</span><span class="hl-yellow">2</span></div>
+                        <div class="step-desc">2. Criss-Cross Add</div>
+                        <div class="step-calc">(2×2) + (3×1)</div>
+                        <div class="step-carry">4 + 3 = 7</div>
+                        <div class="step-answer">Writes: _ 7 6</div>
+                        <div class="step-hint">Multiply diagonally and add the results. This is the heart of the "bowtie"!</div>
+                    </div>
+                    <div class="math-stack">
+                        <div class="stack-row"><span class="hl-blue">2</span><span class="hl-muted">3</span></div>
+                        <div class="stack-row hl-line"><span class="hl-blue">1</span><span class="hl-muted">2</span></div>
+                        <div class="step-desc">3. Vertical Left</div>
+                        <div class="step-calc">2 × 1</div>
+                        <div class="step-answer">Writes: 2 7 6</div>
+                        <div class="step-hint">Multiply the first digits on the left side to complete the number.</div>
+                    </div>
+                </div>
+                <div class="merge-arrow">↓</div>
+                <div class="final-result">276</div>
+            </div>
+
+            <!-- 3 DIGIT EXPANDABLE -->
+            <button class="expand-btn" data-type="3-Digit" onclick="toggleExpand(this)">
+                <span>Show 3-Digit Universal Demo</span><span>▶</span>
+            </button>
+            <div class="practical-section expandable">
+                <div class="example-header">3-Digit Demo: 123 × 214</div>
+                <div class="steps-container">
+                    <div class="math-stack">
+                        <div class="stack-row"><span class="hl-muted">12</span><span class="hl-pink">3</span></div>
+                        <div class="stack-row hl-line"><span class="hl-muted">21</span><span class="hl-pink">4</span></div>
+                        <div class="step-desc">1. Outer R</div>
+                        <div class="step-calc">3×4=12</div>
+                        <div class="step-carry">Write 2. Carry 1</div>
+                        <div class="step-hint">Just like the 2-digit version, start with the vertical column on the far right.</div>
+                    </div>
+                    <div class="math-stack">
+                        <div class="stack-row"><span class="hl-muted">1</span><span class="hl-yellow">23</span></div>
+                        <div class="stack-row hl-line"><span class="hl-muted">2</span><span class="hl-yellow">14</span></div>
+                        <div class="step-desc">2. Inner R Cross</div>
+                        <div class="step-calc">8+3 = 11</div>
+                        <div class="step-carry">+1 (carry) = 12</div>
+                        <div class="step-carry">Write 2. Carry 1</div>
+                        <div class="step-hint">Cross multiply the last two columns. Don't forget to add the carry from step 1!</div>
+                    </div>
+                    <div class="math-stack" style="background: rgba(56, 189, 248, 0.1); border-color: rgba(56, 189, 248, 0.3);">
+                        <div class="stack-row"><span class="hl-blue">123</span></div>
+                        <div class="stack-row hl-line"><span class="hl-blue">214</span></div>
+                        <div class="step-desc">3. Star Cross</div>
+                        <div class="step-calc">4+6+2 = 12</div>
+                        <div class="step-carry">+1 (carry) = 13</div>
+                        <div class="step-carry">Write 3. Carry 1</div>
+                        <div class="step-hint">The Big Star: Outer cross (1x4, 3x2) PLUS the middle vertical (2x1). It's simpler than it looks!</div>
+                    </div>
+                    <div class="math-stack">
+                        <div class="stack-row"><span class="hl-pink">12</span><span class="hl-muted">3</span></div>
+                        <div class="stack-row hl-line"><span class="hl-pink">21</span><span class="hl-muted">4</span></div>
+                        <div class="step-desc">4. Inner L Cross</div>
+                        <div class="step-calc">1+4 = 5</div>
+                        <div class="step-carry">+1 (carry) = 6</div>
+                        <div class="step-carry">Write 6.</div>
+                        <div class="step-hint">Now we move to the left. Cross multiply the first two columns.</div>
+                    </div>
+                    <div class="math-stack">
+                        <div class="stack-row"><span class="hl-yellow">1</span><span class="hl-muted">23</span></div>
+                        <div class="stack-row hl-line"><span class="hl-yellow">2</span><span class="hl-muted">14</span></div>
+                        <div class="step-desc">5. Outer L</div>
+                        <div class="step-calc">1×2 = 2</div>
+                        <div class="step-carry">Write 2.</div>
+                        <div class="step-hint">Final step: Multiply the far left column vertically to finish the wave.</div>
+                    </div>
+                </div>
+                <div class="merge-arrow">↓ Merge Final Digits 2, 6, 3, 2, 2</div>
+                <div class="final-result">26322</div>
+            </div>
+
+            <!-- MIXED EXPANDABLE -->
+            <button class="expand-btn" data-type="Mixed" onclick="toggleExpand(this)">
+                <span>Show Mixed (3 & 2) Universal Demo</span><span>▶</span>
+            </button>
+            <div class="practical-section expandable">
+                <div class="example-header">Mixed Demo: 123 × 42</div>
+                <div class="theory-section" style="margin-bottom: 2rem;">
+                    <p style="color:var(--accent-4); font-size:1.1rem; font-weight:800;">Trick: Pad the smaller number with a leading zero (042) and do exactly the same process!</p>
+                </div>
+                <div class="steps-container">
+                    <div class="math-stack">
+                        <div class="stack-row"><span class="hl-muted">12</span><span class="hl-pink">3</span></div>
+                        <div class="stack-row hl-line"><span class="hl-muted">04</span><span class="hl-pink">2</span></div>
+                        <div class="step-desc">1. Outer R</div>
+                        <div class="step-calc">3×2=6</div>
+                        <div class="step-carry">Write 6.</div>
+                        <div class="step-hint">Start at the right. (3 x 2)</div>
+                    </div>
+                    <div class="math-stack">
+                        <div class="stack-row"><span class="hl-muted">1</span><span class="hl-yellow">23</span></div>
+                        <div class="stack-row hl-line"><span class="hl-muted">0</span><span class="hl-yellow">42</span></div>
+                        <div class="step-desc">2. Inner R</div>
+                        <div class="step-calc">4+12=16</div>
+                        <div class="step-carry">Write 6. Carry 1</div>
+                        <div class="step-hint">Cross multiply the last two numbers: (2x2 + 3x4).</div>
+                    </div>
+                    <div class="math-stack">
+                        <div class="stack-row"><span class="hl-blue">123</span></div>
+                        <div class="stack-row hl-line"><span class="hl-blue">042</span></div>
+                        <div class="step-desc">3. Star Cross</div>
+                        <div class="step-calc">2+0+8=10</div>
+                        <div class="step-carry">+1 (v) = 11</div>
+                        <div class="step-carry">Write 1. Carry 1</div>
+                        <div class="step-hint">The Big Star with the zero: (1x2 + 3x0 + 2x4). The zero makes it easy!</div>
+                    </div>
+                    <div class="math-stack">
+                        <div class="stack-row"><span class="hl-pink">12</span><span class="hl-muted">3</span></div>
+                        <div class="stack-row hl-line"><span class="hl-pink">04</span><span class="hl-muted">2</span></div>
+                        <div class="step-desc">4. Inner L</div>
+                        <div class="step-calc">4+0=4</div>
+                        <div class="step-carry">+1 (c) = 5</div>
+                        <div class="step-carry">Write 5.</div>
+                        <div class="step-hint">Left cross: (1x4 + 2x0). Again, the padded zero helps us stay in the pattern.</div>
+                    </div>
+                    <div class="math-stack">
+                        <div class="stack-row"><span class="hl-yellow">1</span><span class="hl-muted">23</span></div>
+                        <div class="stack-row hl-line"><span class="hl-yellow">0</span><span class="hl-muted">42</span></div>
+                        <div class="step-desc">5. Outer L</div>
+                        <div class="step-calc">1×0=0</div>
+                        <div class="step-hint">Left vertical: (1x0). It zeros out, leaving our result at 5166.</div>
+                    </div>
+                </div>
+                <div class="merge-arrow">↓ Match 0, 5, 1, 6, 6</div>
+                <div class="final-result">5166</div>
+            </div>
+        </div>
+
+        <!-- Method 2 -->
+        <div class="trick-card">
+            <div class="theory-section">
+                <div class="trick-number">Method 02</div>
+                <div class="trick-title">The Rule of 11</div>
+                <div class="teacher-box">
+                    <p>"To multiply any 2-digit number by 11, just split the digits apart, add them together, and shove the sum right in the middle! It takes two seconds."</p>
+                </div>
+            </div>
+            
+            <div class="practical-section">
+                <div class="example-header">Problem: 42 × 11</div>
+                <div class="steps-container">
+                    <div class="math-stack">
+                        <div class="stack-row"><span class="hl-blue">4</span><span class="hl-muted">2</span></div>
+                        <div class="step-desc">Split Digits</div>
+                        <div class="step-answer">4 _ 2</div>
+                        <div class="step-hint">Leave a gap in the middle for our upcoming sum!</div>
+                    </div>
+                    <div class="math-stack">
+                        <div class="stack-row"><span class="hl-pink">4+2</span></div>
+                        <div class="step-desc">Sum</div>
+                        <div class="step-answer">6</div>
+                        <div class="step-hint">Just add the two digits together. If it's over 9, carry the 1 to the left.</div>
+                    </div>
+                    <div class="math-stack">
+                        <div class="stack-row"><span class="hl-blue">4</span><span class="hl-pink">6</span><span class="hl-blue">2</span></div>
+                        <div class="step-desc">Insert</div>
+                        <div class="step-answer">462</div>
+                        <div class="step-hint">Drop the sum into that middle gap. You're done!</div>
+                    </div>
+                </div>
+                <div class="final-result">462</div>
+            </div>
+        </div>
+
+        <!-- Method 3 -->
+        <div class="trick-card">
+            <div class="theory-section">
+                <div class="trick-number">Method 03</div>
+                <div class="trick-title">Squaring Numbers ending in 5</div>
+                <div class="teacher-box">
+                    <p>"A number ending in 5 times ITSELF always ends in 25. For the first half, just multiply the first digit by the NEXT highest digit (e.g., 3 × 4)."</p>
+                </div>
+            </div>
+            
+            <div class="practical-section">
+                <div class="example-header">Problem: 65 × 65</div>
+                <div class="steps-container">
+                    <div class="math-stack">
+                        <div class="stack-row"><span class="hl-blue">6</span><span class="hl-muted">5</span></div>
+                        <div class="stack-row hl-line"><span class="hl-blue">6</span><span class="hl-muted">5</span></div>
+                        <div class="step-desc">Tens × (Tens+1)</div>
+                        <div class="step-calc">6 × 7 = 42</div>
+                        <div class="step-hint">Multiply the first digit by the number that comes immediately after it.</div>
+                    </div>
+                    <div class="math-stack">
+                        <div class="stack-row"><span class="hl-muted">6</span><span class="hl-yellow">5</span></div>
+                        <div class="stack-row hl-line"><span class="hl-muted">6</span><span class="hl-yellow">5</span></div>
+                        <div class="step-desc">Always 25</div>
+                        <div class="step-calc">5 × 5 = 25</div>
+                        <div class="step-hint">Every square of a number ending in 5 ends in 25. No calculation needed!</div>
+                    </div>
+                </div>
+                <div class="merge-arrow">↓ Merge</div>
+                <div class="final-result">4225</div>
+            </div>
+        </div>
+
+        <!-- Method 4 -->
+        <div class="trick-card">
+            <div class="theory-section">
+                <div class="trick-number">Method 04</div>
+                <div class="trick-title">Same Tens, Units sum to 10</div>
+                <div class="teacher-box">
+                    <p>"If the FIRST digits match, and LAST digits sum to 10 (like 43 and 47), use the same trick as above! Multiply first digit by the next highest number, and multiply the units."</p>
+                </div>
+            </div>
+            
+            <div class="practical-section">
+                <div class="example-header">Problem: 43 × 47</div>
+                <div class="steps-container">
+                    <div class="math-stack">
+                        <div class="stack-row"><span class="hl-blue">4</span><span class="hl-muted">3</span></div>
+                        <div class="stack-row hl-line"><span class="hl-blue">4</span><span class="hl-muted">7</span></div>
+                        <div class="step-desc">Matching Tens</div>
+                        <div class="step-calc">4 × 5 = 20</div>
+                        <div class="step-hint">Since the tens are the same, multiply 4 by the next number (5).</div>
+                    </div>
+                    <div class="math-stack">
+                        <div class="stack-row"><span class="hl-muted">4</span><span class="hl-yellow">3</span></div>
+                        <div class="stack-row hl-line"><span class="hl-muted">4</span><span class="hl-yellow">7</span></div>
+                        <div class="step-desc">Multiply Units</div>
+                        <div class="step-calc">3 × 7 = 21</div>
+                        <div class="step-hint">The units sum to 10, so just multiply them together to get the end of our number.</div>
+                    </div>
+                </div>
+                <div class="merge-arrow">↓ Merge</div>
+                <div class="final-result">2021</div>
+            </div>
+        </div>
+
+        <!-- Method 5 -->
+        <div class="trick-card">
+            <div class="theory-section">
+                <div class="trick-number">Method 05</div>
+                <div class="trick-title">Same Units, Tens sum to 10</div>
+                <div class="teacher-box">
+                    <p>"The reverse condition! If LAST digits match, and FIRST digits add to 10. Multiply the tens together and ADD the unit. Then just multiply the matching units."</p>
+                </div>
+            </div>
+            
+            <div class="practical-section">
+                <div class="example-header">Problem: 64 × 44</div>
+                <div class="steps-container">
+                    <div class="math-stack">
+                        <div class="stack-row"><span class="hl-blue">6</span><span class="hl-yellow">4</span></div>
+                        <div class="stack-row hl-line"><span class="hl-blue">4</span><span class="hl-yellow">4</span></div>
+                        <div class="step-desc">(Tens × Tens) + Unit</div>
+                        <div class="step-calc">(6×4) + 4 = 28</div>
+                        <div class="step-hint">Multiply the different tens (6 and 4) and add that matching unit digit (4) back in.</div>
+                    </div>
+                    <div class="math-stack">
+                        <div class="stack-row"><span class="hl-muted">6</span><span class="hl-pink">4</span></div>
+                        <div class="stack-row hl-line"><span class="hl-muted">4</span><span class="hl-pink">4</span></div>
+                        <div class="step-desc">Multiply Units</div>
+                        <div class="step-calc">4 × 4 = 16</div>
+                        <div class="step-hint">Simply multiply the identical unit digits together for the end part.</div>
+                    </div>
+                </div>
+                <div class="merge-arrow">↓ Merge</div>
+                <div class="final-result">2816</div>
+            </div>
+        </div>
+
+        <!-- Method 6 -->
+        <div class="trick-card">
+            <div class="theory-section">
+                <div class="trick-number">Method 06</div>
+                <div class="trick-title">Close to 100 Base Method</div>
+                <div class="teacher-box">
+                    <p>"When both numbers are close to 100, look at how far away they are. Cross-subtract the distance, then multiply the distances."</p>
+                </div>
+            </div>
+
+            <div class="practical-section">
+                <div class="example-header">Problem: 98 × 93</div>
+                <div class="steps-container">
+                    <div class="math-stack">
+                        <div class="stack-row"><span class="hl-blue">98</span> <span style="font-size:1.5rem; color:var(--accent-4)">(-2)</span></div>
+                        <div class="stack-row hl-line"><span class="hl-pink">93</span> <span style="font-size:1.5rem; color:var(--accent-4)">(-7)</span></div>
+                    </div>
+                    <div class="math-stack">
+                        <div class="step-desc">1. Cross Subtract</div>
+                        <div class="step-calc">98 - 7 (or 93 - 2)</div>
+                        <div class="step-answer">91</div>
+                        <div class="step-hint">Take either number and subtract the other number's distance from 100.</div>
+                    </div>
+                    <div class="math-stack">
+                        <div class="step-desc">2. Mult Deviations</div>
+                        <div class="step-calc">(-2) × (-7)</div>
+                        <div class="step-answer">14</div>
+                        <div class="step-hint">Multiply the two "distances" together to get the final part of your answer.</div>
+                    </div>
+                </div>
+                <div class="merge-arrow">↓ Merge</div>
+                <div class="final-result">9114</div>
+            </div>
+        </div>
+
+        <!-- Method 7 -->
+        <div class="trick-card">
+            <div class="theory-section">
+                <div class="trick-number">Method 07</div>
+                <div class="trick-title">Multiplying by 9, 99...</div>
+                <div class="teacher-box">
+                    <p>"Subtract 1 from the original number to get the first half. Then subtract THAT result from 9s to get the second half!"</p>
+                </div>
+            </div>
+
+            <div class="practical-section">
+                <div class="example-header">Problem: 46 × 99</div>
+                <div class="steps-container">
+                    <div class="math-stack">
+                        <div class="stack-row"><span class="hl-blue">46</span></div>
+                        <div class="step-desc">Subtract 1</div>
+                        <div class="step-calc">46 - 1 = 45</div>
+                        <div class="step-hint">Knock 1 off the number you are multiplying by 9s. This is the first half of your answer!</div>
+                    </div>
+                    <div class="math-stack">
+                        <div class="stack-row"><span class="hl-pink">45</span></div>
+                        <div class="step-desc">Subtract from 99</div>
+                        <div class="step-calc">99 - 45 = 54</div>
+                        <div class="step-hint">Think: What do I need to add to 45 to reach 99? 4+5=9 and 5+4=9.</div>
+                    </div>
+                </div>
+                <div class="merge-arrow">↓ Merge</div>
+                <div class="final-result">4554</div>
+            </div>
+        </div>
+
+        <!-- Method 8 -->
+        <div class="trick-card">
+            <div class="theory-section">
+                <div class="trick-number">Method 08</div>
+                <div class="trick-title">Even Gap Method</div>
+                <div class="teacher-box">
+                    <p>"When two numbers have an even gap (like 18 and 22), the answer is simply the square of their midpoint minus the square of the half-gap. It's the 'Difference of Squares' in disguise!"</p>
+                </div>
+            </div>
+
+            <div class="practical-section">
+                <div class="example-header">Problem: 24 × 26</div>
+                <div class="steps-container">
+                    <div class="math-stack">
+                        <div class="step-desc">1. Midpoint Square</div>
+                        <div class="step-calc">(25)²</div>
+                        <div class="step-answer">625</div>
+                        <div class="step-hint">Find the middle number (25) and square it. 25 is exactly between 24 and 26.</div>
+                    </div>
+                    <div class="math-stack">
+                        <div class="step-desc">2. Half-Gap Square</div>
+                        <div class="step-calc">(1)²</div>
+                        <div class="step-answer">1</div>
+                        <div class="step-hint">The gap is 2, so half-gap is 1. Square this small difference.</div>
+                    </div>
+                    <div class="math-stack">
+                        <div class="step-desc">3. Subtract</div>
+                        <div class="step-calc">625 - 1</div>
+                        <div class="step-answer">624</div>
+                        <div class="step-hint">Subtract the gap square from the midpoint square for the final answer!</div>
+                    </div>
+                </div>
+                <div class="final-result">624</div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function toggleExpand(btn) {
+            const expandable = btn.nextElementSibling;
+            const type = btn.getAttribute('data-type');
+            
+            if (expandable.classList.contains('show')) {
+                expandable.classList.remove('show');
+                btn.classList.remove('active');
+                btn.innerHTML = `<span>Show ${type} Universal Demo</span><span>▶</span>`;
+            } else {
+                expandable.classList.add('show');
+                btn.classList.add('active');
+                btn.innerHTML = `<span>Hide ${type} Universal Demo</span><span>▼</span>`;
+            }
+        }
+    </script>
+</body>
+</html>

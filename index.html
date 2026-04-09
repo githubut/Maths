@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Arena Prime Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #040814;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --card-bg: #0f172a;
+            --accent-1: #38bdf8;
+            --accent-2: #818cf8;
+            --accent-3: #f472b6;
+            --success: #34d399;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(ellipse at top, rgba(129, 140, 248, 0.15) 0%, transparent 70%),
+                radial-gradient(ellipse at bottom, rgba(56, 189, 248, 0.1) 0%, transparent 70%);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        header {
+            text-align: center;
+            padding: 6rem 2rem 4rem;
+            position: relative;
+        }
+
+        .pill {
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--accent-1);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: inline-block;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+        }
+
+        h1 {
+            font-size: 5rem;
+            margin: 0;
+            background: linear-gradient(to right, #fff, var(--text-muted));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            letter-spacing: -2px;
+            line-height: 1.1;
+        }
+
+        .highlight-text {
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-3));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p.subtitle {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            margin-top: 1.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        .grid-container {
+            max-width: 1200px;
+            width: 90%;
+            padding: 2rem 0 6rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .nav-card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 3rem 2rem;
+            text-decoration: none;
+            color: inherit;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+            box-shadow: 0 10px 30px -15px rgba(0,0,0,0.8);
+        }
+
+        .nav-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at top right, rgba(56, 189, 248, 0.1), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .nav-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(56, 189, 248, 0.3);
+            box-shadow: 0 20px 40px -15px rgba(56, 189, 248, 0.15);
+        }
+
+        .nav-card:hover::before {
+            opacity: 1;
+        }
+
+        .icon-box {
+            width: 80px;
+            height: 80px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: transform 0.4s ease;
+        }
+
+        .nav-card:hover .icon-box {
+            transform: scale(1.1) rotate(5deg);
+            background: rgba(56, 189, 248, 0.1);
+            border-color: rgba(56, 189, 248, 0.3);
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
+        }
+
+        .card-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .card-desc {
+            color: var(--text-muted);
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+
+        .badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(52, 211, 153, 0.2);
+            color: var(--success);
+            padding: 5px 12px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            border: 1px solid rgba(52, 211, 153, 0.3);
+        }
+
+        .locked-card {
+            opacity: 0.6;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+        
+        .locked-card:hover {
+            transform: none;
+            border-color: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 10px 30px -15px rgba(0,0,0,0.8);
+        }
+
+        .locked-card .badge {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="pill">Mental Computation Portal</div>
+        <h1>Math Arena <span class="highlight-text">Prime</span></h1>
+        <p class="subtitle">Select your discipline. Explore cutting-edge speed math techniques to completely drop the traditional pen and paper, and unleash your mental calculator.</p>
+    </header>
+
+    <div class="grid-container">
+
+        <!-- Active Link -->
+        <a href="addition.html" class="nav-card">
+            <div class="badge">5 Tricks Available</div>
+            <div class="icon-box">➕</div>
+            <div class="card-title">Addition Master</div>
+            <div class="card-desc">Master 5 powerful techniques including Left-to-Right mapping, Base Rounding, and the Deviation Method.</div>
+        </a>
+
+        <!-- Active Link -->
+        <a href="subtraction.html" class="nav-card">
+            <div class="badge">5 Tricks Available</div>
+            <div class="icon-box">➖</div>
+            <div class="card-title">Subtraction Speed</div>
+            <div class="card-desc">Advanced techniques for borrowing instantly using Left-to-Right mapping, Same Difference, and the Cashier Trick.</div>
+        </a>
+
+        <!-- Multiplication Grids (Updated description) -->
+        <a href="multiplication.html" class="nav-card">
+            <div class="badge">8 Tricks Available</div>
+            <div class="icon-box">✖️</div>
+            <div class="card-title">Multiplication Grids</div>
+            <div class="card-desc">Advanced shortcut methods including rule of 11, Even Gap squares, and Vedic cross-multiplication.</div>
+        </a>
+
+        <!-- Square Shortcuts -->
+        <a href="squares.html" class="nav-card">
+            <div class="badge">5 Shortcuts Unlocked</div>
+            <div class="icon-box">🟦</div>
+            <div class="card-title">Square Shortcuts</div>
+            <div class="card-desc">Instantly square any number using base methods, proximity to 50/100, and ending-digit patterns.</div>
+        </a>
+
+        <!-- Cube Shortcuts -->
+        <a href="cubes.html" class="nav-card">
+            <div class="badge">5 Shortcuts Unlocked</div>
+            <div class="icon-box">🧊</div>
+            <div class="card-title">Cube Shortcuts</div>
+            <div class="card-desc">Master 2-digit cubes using the ratio method and learn the secret to calculating cube roots in seconds.</div>
+        </a>
+
+        <!-- Square Root Shortcuts -->
+        <a href="square-roots.html" class="nav-card">
+            <div class="badge">5 Shortcuts Unlocked</div>
+            <div class="icon-box">📐</div>
+            <div class="card-title">Square Root Speed</div>
+            <div class="card-desc">Instantly calculate perfect roots and approximate any non-perfect square using the linear estimation trick.</div>
+        </a>
+
+        <!-- Cube Root Shortcuts -->
+        <a href="cube-roots.html" class="nav-card">
+            <div class="badge">2 Shortcuts Unlocked</div>
+            <div class="icon-box">🧞</div>
+            <div class="card-title">Cube Root Magic</div>
+            <div class="card-desc">The legendary 2-second cube root trick for perfect cubes. Extract roots of 6-digit numbers instantly.</div>
+        </a>
+
+        <!-- Consecutive Numbers -->
+        <a href="consecutive.html" class="nav-card">
+            <div class="badge">2 Patterns Unlocked</div>
+            <div class="icon-box">🔢</div>
+            <div class="card-title">Consecutive Patterns</div>
+            <div class="card-desc">Master the products of consecutive numbers ($N \times N+1$) using square offsets and midpoint logic.</div>
+        </a>
+
+        <!-- Multiplication Tables -->
+        <a href="tables.html" class="nav-card">
+            <div class="badge">30 Tables Available</div>
+            <div class="icon-box">📋</div>
+            <div class="card-title">Multiplication Tables</div>
+            <div class="card-desc">Rapid-fire multiplication tables from 1 to 30. Perfect for building the foundational speed needed for complex math.</div>
+        </a>
+
+        <!-- Fractions & Percentage -->
+        <a href="fractions.html" class="nav-card">
+            <div class="badge">1/2 to 1/20 Wall</div>
+            <div class="icon-box">🎯</div>
+            <div class="card-title">Fractions & %</div>
+            <div class="card-desc">Master the core conversions between fractions, decimals, and percentages. Instant recall for $1/X$ sequences.</div>
+        </a>
+
+    </div>
+
+</body>
+</html>

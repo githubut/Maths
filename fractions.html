@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fractions & Percentages: Master Conversions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #020617;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --card-bg: #0f172a;
+            --accent-1: #06b6d4;
+            --accent-2: #3b82f6;
+            --accent-3: #8b5cf6;
+            --success: #10b981;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(6, 182, 212, 0.15) 0 transparent 50%), 
+                radial-gradient(at 100% 0%, rgba(139, 92, 246, 0.1) 0 transparent 50%),
+                radial-gradient(at 50% 100%, rgba(59, 130, 246, 0.1) 0 transparent 50%);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        header {
+            text-align: center;
+            padding: 6rem 2rem 3rem;
+            max-width: 900px;
+        }
+
+        h1 {
+            font-size: 4.5rem;
+            margin: 0;
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-3));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            letter-spacing: -2px;
+            text-transform: tight;
+        }
+
+        .container {
+            max-width: 1400px;
+            width: 95%;
+            padding: 0 0 8rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 4rem;
+        }
+
+        /* Grouped Wall Styling */
+        .group-section {
+            margin-bottom: 2rem;
+        }
+        .group-header {
+            font-size: 1.1rem;
+            color: var(--accent-1);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .group-header::after { content: ''; height: 1px; flex: 1; background: rgba(255,255,255,0.05); }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .ref-item {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(20px);
+            padding: 1.5rem;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .ref-item:hover {
+            transform: translateY(-8px);
+            background: rgba(6, 182, 212, 0.08);
+            border-color: rgba(6, 182, 212, 0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .visual-indicator {
+            width: 40px;
+            height: 40px;
+            position: relative;
+            flex-shrink: 0;
+        }
+        .progress-ring {
+            transform: rotate(-90deg);
+        }
+        .progress-ring__circle {
+            stroke-dasharray: 100;
+            stroke-dashoffset: 100;
+            transition: stroke-dashoffset 1s ease-out;
+            stroke-linecap: round;
+        }
+
+        .content-box { flex: 1; display: flex; align-items: center; justify-content: center; }
+        
+        .equation-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.15rem;
+            color: #fff;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .fraction-stack {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            line-height: 1;
+        }
+        .fraction-stack .num { border-bottom: 2px solid var(--accent-1); padding: 0 5px 2px; }
+        .fraction-stack .den { padding: 2px 5px 0; }
+        .fraction-stack.small { font-size: 0.9rem; margin-bottom: 10px; }
+        .fraction-stack.small .num { border-bottom-width: 1.5px; }
+
+        .equals { font-size: 1.5rem; opacity: 0.5; color: var(--accent-1); }
+        .mixed-box { display: flex; align-items: center; gap: 5px; color: var(--accent-1); font-size: 1.8rem; }
+
+        /* Method Cards */
+        .trick-card {
+            background-color: var(--card-bg);
+            border-radius: 32px;
+            padding: 4rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        @media (max-width: 1000px) { .trick-card { grid-template-columns: 1fr; padding: 2.5rem; } }
+
+        .theory-section { text-align: left; }
+        .trick-number { font-size: 1rem; color: var(--accent-1); font-weight: 800; letter-spacing: 2px; }
+        .trick-title { font-size: 2.8rem; font-weight: 800; color: #fff; margin: 0.5rem 0 1.5rem 0; line-height: 1; }
+
+        .teacher-box {
+            background: rgba(6, 182, 212, 0.05);
+            padding: 2rem;
+            border-radius: 20px;
+            border-left: 4px solid var(--accent-1);
+        }
+
+        .math-stack {
+            background: rgba(0,0,0,0.3);
+            padding: 2rem;
+            border-radius: 24px;
+            transition: all 0.3s;
+        }
+        .stack-row { font-size: 2.8rem; }
+
+        .final-result { 
+            font-size: 5rem; 
+            background: linear-gradient(to bottom, #fff, var(--accent-1));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .back-link { position: absolute; top: 2rem; left: 2rem; color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 1.1rem; }
+
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="back-link">← HUB</a>
+
+    <header>
+        <h1>Ratio Master</h1>
+        <p style="color:var(--text-muted); font-size:1.4rem; margin-top:1.5rem; font-weight:300;">Visualizing the core building blocks of arithmetic. Master these 20 conversions to calculate any percentage in your head instantly.</p>
+    </header>
+
+    <div class="container" id="mainContainer">
+        <!-- JS will populate sections here -->
+    </div>
+
+    <script>
+        const groups = [
+            {
+                name: "The Binary Sequence (Powers of 2)",
+                data: [
+                    { f_num: 1, f_den: 2, eq_num: 100, eq_den: 2, whole: 50, m_num: "", m_den: "", val: 50 },
+                    { f_num: 1, f_den: 4, eq_num: 100, eq_den: 4, whole: 25, m_num: "", m_den: "", val: 25 },
+                    { f_num: 1, f_den: 8, eq_num: 100, eq_den: 8, whole: 12, m_num: 1, m_den: 2, val: 12.5 },
+                    { f_num: 1, f_den: 16, eq_num: 100, eq_den: 16, whole: 6, m_num: 1, m_den: 4, val: 6.25 }
+                ]
+            },
+            {
+                name: "The Tertiaries (Multiples of 3 & 9)",
+                data: [
+                    { f_num: 1, f_den: 3, eq_num: 100, eq_den: 3, whole: 33, m_num: 1, m_den: 3, val: 33.3 },
+                    { f_num: 1, f_den: 6, eq_num: 100, eq_den: 6, whole: 16, m_num: 2, m_den: 3, val: 16.6 },
+                    { f_num: 1, f_den: 9, eq_num: 100, eq_den: 9, whole: 11, m_num: 1, m_den: 9, val: 11.1 },
+                    { f_num: 1, f_den: 12, eq_num: 100, eq_den: 12, whole: 8, m_num: 1, m_den: 3, val: 8.3 },
+                    { f_num: 1, f_den: 18, eq_num: 100, eq_den: 18, whole: 5, m_num: 5, m_den: 9, val: 5.5 }
+                ]
+            },
+            {
+                name: "The Decimal Anchor (Fives & Tens)",
+                data: [
+                    { f_num: 1, f_den: 5, eq_num: 100, eq_den: 5, whole: 20, m_num: "", m_den: "", val: 20 },
+                    { f_num: 1, f_den: 10, eq_num: 100, eq_den: 10, whole: 10, m_num: "", m_den: "", val: 10 },
+                    { f_num: 1, f_den: 15, eq_num: 100, eq_den: 15, whole: 6, m_num: 2, m_den: 3, val: 6.6 },
+                    { f_num: 1, f_den: 20, eq_num: 100, eq_den: 20, whole: 5, m_num: "", m_den: "", val: 5 }
+                ]
+            },
+            {
+                name: "The Ninja Primes (The Tough Guys)",
+                data: [
+                    { f_num: 1, f_den: 7, eq_num: 100, eq_den: 7, whole: 14, m_num: 2, m_den: 7, val: 14.2 },
+                    { f_num: 1, f_den: 11, eq_num: 100, eq_den: 11, whole: 9, m_num: 1, m_den: 11, val: 9.09 },
+                    { f_num: 1, f_den: 13, eq_num: 100, eq_den: 13, whole: 7, m_num: 9, m_den: 13, val: 7.69 },
+                    { f_num: 1, f_den: 14, eq_num: 100, eq_den: 14, whole: 7, m_num: 1, m_den: 7, val: 7.14 },
+                    { f_num: 1, f_den: 17, eq_num: 100, eq_den: 17, whole: 5, m_num: 15, m_den: 17, val: 5.88 },
+                    { f_num: 1, f_den: 19, eq_num: 100, eq_den: 19, whole: 5, m_num: 5, m_den: 19, val: 5.26 }
+                ]
+            },
+            {
+                name: "High-Impact Multiples (Numerators > 1)",
+                data: [
+                    { f_num: 2, f_den: 3, eq_num: 200, eq_den: 3, whole: 66, m_num: 2, m_den: 3, val: 66.6 },
+                    { f_num: 3, f_den: 4, eq_num: 300, eq_den: 4, whole: 75, m_num: "", m_den: "", val: 75 },
+                    { f_num: 2, f_den: 5, eq_num: 200, eq_den: 5, whole: 40, m_num: "", m_den: "", val: 40 },
+                    { f_num: 3, f_den: 8, eq_num: 300, eq_den: 8, whole: 37, m_num: 1, m_den: 2, val: 37.5 },
+                    { f_num: 5, f_den: 8, eq_num: 500, eq_den: 8, whole: 62, m_num: 1, m_den: 2, val: 62.5 },
+                    { f_num: 4, f_den: 7, eq_num: 400, eq_den: 7, whole: 57, m_num: 1, m_den: 7, val: 57.1 },
+                    { f_num: 5, f_den: 6, eq_num: 500, eq_den: 6, whole: 83, m_num: 1, m_den: 3, val: 83.3 },
+                    { f_num: 2, f_den: 9, eq_num: 200, eq_den: 9, whole: 22, m_num: 2, m_den: 9, val: 22.2 }
+                ]
+            }
+        ];
+
+        const container = document.getElementById('mainContainer');
+
+        groups.forEach(group => {
+            const section = document.createElement('div');
+            section.className = 'group-section';
+            
+            section.innerHTML = `
+                <div class="group-header">${group.name}</div>
+                <div class="dashboard-grid"></div>
+            `;
+            
+            const grid = section.querySelector('.dashboard-grid');
+            
+            group.data.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'ref-item';
+                
+                const offset = 157 * (1 - item.val / 100);
+                
+                const mixedPart = item.m_num ? `
+                    <div class="fraction-stack small">
+                        <div class="num">${item.m_num}</div>
+                        <div class="den">${item.m_den}</div>
+                    </div>
+                ` : '';
+
+                card.innerHTML = `
+                    <div class="visual-indicator" style="width:40px; height:40px;">
+                        <svg class="progress-ring" width="40" height="40">
+                            <circle class="progress-ring__circle" stroke="var(--accent-1)" stroke-width="3" fill="transparent" r="16" cx="20" cy="20" style="stroke-dashoffset: ${100 * (1 - item.val / 100)}" />
+                        </svg>
+                    </div>
+                    <div class="content-box">
+                        <div class="equation-row">
+                            <div class="fraction-stack">
+                                <div class="num">${item.f_num}</div>
+                                <div class="den">${item.f_den}</div>
+                            </div>
+                            <div class="equals">=</div>
+                            <div class="fraction-stack">
+                                <div class="num">${item.eq_num}</div>
+                                <div class="den">${item.eq_den}</div>
+                            </div>
+                            <div class="equals">=</div>
+                            <div class="mixed-box">
+                                ${item.whole} ${mixedPart} %
+                            </div>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+            
+            container.appendChild(section);
+        });
+
+        // Add the Methods at the end
+        const methodHTML = `
+            <div class="trick-card">
+                <div class="theory-section">
+                    <div class="trick-number">METHOD 01</div>
+                    <div class="trick-title">Fraction → %</div>
+                    <div class="teacher-box">
+                        <p>"Think of it as the Power-100 rule. Every numerator gets scaled by 100 to reveal its percentage weight."</p>
+                    </div>
+                </div>
+                <div class="practical-section">
+                    <div class="steps-container">
+                        <div class="math-stack">
+                            <div class="stack-row">4/5</div>
+                            <div class="step-calc">4 ÷ 5 = 0.8</div>
+                        </div>
+                        <div class="math-stack">
+                            <div class="stack-row">× 100</div>
+                            <div class="final-result">80%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        container.insertAdjacentHTML('beforeend', methodHTML);
+
+    </script>
+</body>
+</html>

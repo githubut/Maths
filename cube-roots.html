@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cube Root Magic: The 2-Second Ninja Speed</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0b1120;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --card-bg: #1e293b;
+            --accent-1: #c084fc;
+            --accent-2: #818cf8;
+            --accent-3: #f472b6;
+            --accent-4: #fbbf24;
+            --success: #34d399;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(192, 132, 252, 0.15) 0 transparent 50%), 
+                radial-gradient(at 100% 100%, rgba(244, 114, 182, 0.1) 0 transparent 50%);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        header {
+            text-align: center;
+            padding: 6rem 2rem 2rem;
+            position: relative;
+            max-width: 800px;
+        }
+
+        h1 {
+            font-size: 3.8rem;
+            margin: 0;
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-3));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            line-height: 1.1;
+        }
+
+        p.subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-top: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 95%;
+            padding: 2rem 0 6rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        .trick-card {
+            background-color: var(--card-bg);
+            border-radius: 24px;
+            padding: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .theory-section { text-align: center; }
+        .trick-number { font-size: 1.2rem; color: var(--accent-1); font-weight: 800; text-transform: uppercase; margin-bottom: 0.5rem; }
+        .trick-title { font-size: 2.2rem; font-weight: 800; color: #fff; }
+
+        .teacher-box {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border-left: 4px solid var(--accent-1);
+            text-align: left;
+            margin-top: 1rem;
+        }
+        .teacher-box p { margin: 0; font-size: 1.05rem; line-height: 1.6; color: #cbd5e1; font-style: italic; }
+
+        .practical-section {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 20px;
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .example-header {
+            font-size: 1.1rem; color: var(--accent-1); margin-bottom: 2rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px;
+            background: rgba(192, 132, 252, 0.1); padding: 8px 24px; border-radius: 50px;
+        }
+
+        .steps-container { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; width: 100%; }
+
+        .math-stack {
+            display: flex; flex-direction: column; align-items: center; background: rgba(0,0,0,0.3);
+            padding: 1.5rem; border-radius: 16px; min-width: 170px; flex: 1;
+        }
+
+        .stack-row { font-family: monospace; font-size: 2.2rem; font-weight: 800; color: #fff; }
+        .step-desc { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; margin-top: 10px; font-weight: 800; }
+        .step-calc { font-size: 1.1rem; color: #fff; margin-top: 8px; font-weight: 800; background: var(--card-bg); padding: 5px 12px; border-radius: 8px; }
+        .step-hint { font-size: 0.75rem; color: #94a3b8; margin-top: 10px; line-height: 1.4; text-align: center; font-style: italic; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 8px; }
+
+        .final-result { 
+            font-size: 4rem; font-weight: 800; color: var(--accent-1); 
+            background: rgba(192, 132, 252, 0.05); padding: 10px 40px; border-radius: 20px; border: 1px solid rgba(192, 132, 252, 0.2);
+            text-shadow: 0 0 30px rgba(192, 132, 252, 0.3); margin-top: 2rem;
+            text-align: center;
+        }
+
+        .pinned-card { border: 2px solid var(--accent-1); box-shadow: 0 0 40px rgba(192, 132, 252, 0.2); }
+
+        .back-link { position: absolute; top: 2rem; left: 2rem; color: var(--text-muted); text-decoration: none; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+        .back-link:hover { color: #fff; }
+
+        .hl-purple { color: var(--accent-1); }
+        .hl-pink { color: var(--accent-3); }
+
+        /* Digit Match Table (Compact) */
+        .match-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            margin-top: 1.5rem;
+            width: 100%;
+        }
+        .match-item {
+            background: rgba(255,255,255,0.05);
+            padding: 10px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 0.9rem;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .match-item .val { font-weight: 800; color: var(--accent-1); }
+
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="back-link">← Hub</a>
+
+    <header>
+        <h1>Cube Root Magic</h1>
+        <p class="subtitle">Extracting roots of massive perfect cubes from memory is arguably the most impressive mental math feat. It’s also one of the easiest to learn!</p>
+    </header>
+
+    <div class="container">
+
+        <!-- Method 1: The Ninja Match -->
+        <div class="trick-card pinned-card">
+            <div class="theory-section">
+                <div class="trick-number">The Master Shortcut</div>
+                <div class="trick-title">Perfect Cube Root (Vilokanam)</div>
+                <div class="teacher-box">
+                    <p>"Unlike square roots where each end digit has two possibilities, cube roots are ONE-TO-ONE. Each ending digit only maps to one possible root digit. Match the end, find the range, and you are done in seconds."</p>
+                    
+                    <div class="match-grid">
+                        <div class="match-item">0 → <span class="val">0</span></div>
+                        <div class="match-item">1 → <span class="val">1</span></div>
+                        <div class="match-item">2 <-> <span class="val">8</span></div>
+                        <div class="match-item">3 <-> <span class="val">7</span></div>
+                        <div class="match-item">4 → <span class="val">4</span></div>
+                        <div class="match-item">5 → <span class="val">5</span></div>
+                        <div class="match-item">6 → <span class="val">6</span></div>
+                        <div class="match-item">7 <-> <span class="val">3</span></div>
+                        <div class="match-item">8 <-> <span class="val">2</span></div>
+                        <div class="match-item">9 → <span class="val">9</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="practical-section">
+                <div class="example-header">Problem: ∛110,592</div>
+                <div class="steps-container">
+                    <div class="math-stack">
+                        <div class="stack-row">...<span class="hl-purple">592</span></div>
+                        <div class="step-desc">1. Last Three</div>
+                        <div class="step-calc">Ends in 2 → 8</div>
+                        <div class="step-hint">Ignore the last three digits and look ONLY at the very last one (2). In our magic table, 2 belongs to 8.</div>
+                    </div>
+                    <div class="math-stack">
+                        <div class="stack-row"><span class="hl-pink">110</span>...</div>
+                        <div class="step-desc">2. Range Check</div>
+                        <div class="step-calc">4³ < 110 < 5³</div>
+                        <div class="step-hint">110 is between 64 (4³) and 125 (5³). So the first digit must be 4.</div>
+                    </div>
+                    <div class="math-stack">
+                        <div class="stack-row">4 | 8</div>
+                        <div class="step-desc">3. Combine</div>
+                        <div class="step-calc">48</div>
+                        <div class="step-hint">Just push the two numbers together. No tie-breakers, no guessing. Perfectly 48!</div>
+                    </div>
+                </div>
+                <div class="final-result">48</div>
+            </div>
+        </div>
+
+        <!-- Method 2: High Speed Non-Perfect -->
+        <div class="trick-card">
+            <div class="theory-section">
+                <div class="trick-number">Method 02</div>
+                <div class="trick-title">Estimation Formula</div>
+                <div class="teacher-box">
+                    <p>"For non-perfect cubes, we use a similar correction formula as square roots, but adjusted for the 3rd dimension: Root ≈ Perfect Root + (Gap / 3 × Root²)."</p>
+                </div>
+            </div>
+
+            <div class="practical-section">
+                <div class="example-header">Problem: ∛30 (Approx)</div>
+                <div class="steps-container">
+                    <div class="math-stack">
+                        <div class="step-desc">1. Nearest Cube</div>
+                        <div class="step-calc">∛27 = 3</div>
+                        <div class="step-hint">27 is the closest cube. Our base is 3.</div>
+                    </div>
+                    <div class="math-stack">
+                        <div class="step-desc">2. The Gap</div>
+                        <div class="step-calc">30 - 27 = 3</div>
+                        <div class="step-hint">The number is 3 units away from our perfect base.</div>
+                    </div>
+                    <div class="math-stack">
+                        <div class="step-desc">3. Correction</div>
+                        <div class="step-calc">3 / (3 × 3²)</div>
+                        <div class="step-answer">3 / 27 ≈ 0.11</div>
+                        <div class="step-hint">Divide gap (3) by triple the square of the root (27).</div>
+                    </div>
+                </div>
+                <div class="final-result">3.11</div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

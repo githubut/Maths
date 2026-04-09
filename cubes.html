@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cube Shortcuts: 4 Master Methods</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0b1120;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --card-bg: #1e293b;
+            --accent-1: #38bdf8;
+            --accent-2: #818cf8;
+            --accent-3: #f472b6;
+            --accent-4: #fbbf24;
+            --success: #34d399;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(129, 140, 248, 0.15) 0 transparent 50%), 
+                radial-gradient(at 100% 100%, rgba(56, 189, 248, 0.15) 0 transparent 50%);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        header {
+            text-align: center;
+            padding: 5rem 2rem 2rem;
+            position: relative;
+            max-width: 800px;
+        }
+
+        h1 {
+            font-size: 3.8rem;
+            margin: 0;
+            background: linear-gradient(135deg, var(--accent-2), var(--accent-1));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            line-height: 1.1;
+        }
+
+        p.subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-top: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 95%;
+            padding: 3rem 0 5rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        /* Dashboard Wall */
+        .reference-box {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(20px);
+            border-radius: 32px;
+            padding: 3rem;
+            width: 95%;
+            max-width: 1250px;
+            margin-top: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+        .reference-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-bottom: 1.5rem;
+        }
+        .reference-header h2 { font-size: 1.8rem; margin: 0; font-weight: 800; color: #fff; }
+        .reference-header span { color: var(--accent-2); font-weight: 600; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        @media (max-width: 900px) { .dashboard-grid { grid-template-columns: repeat(1, 1fr); } }
+
+        .group-column { display: flex; flex-direction: column; gap: 12px; }
+        .group-title { font-size: 0.8rem; color: var(--text-muted); font-weight: 800; text-transform: uppercase; margin-bottom: 10px; display: flex; align-items: center; gap: 10px;}
+        .group-title::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.05); }
+
+        .ref-item {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 12px 18px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid rgba(255,255,255,0.03);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .ref-item:hover {
+            background: rgba(129, 140, 248, 0.1);
+            border-color: rgba(129, 140, 248, 0.3);
+            transform: translateX(5px);
+        }
+        .base { color: var(--text-muted); font-family: monospace; font-size: 1.1rem; }
+        .result { color: #fff; font-weight: 800; font-size: 1.2rem; }
+
+        /* Trick Cards */
+        .trick-card {
+            background-color: var(--card-bg);
+            border-radius: 24px;
+            padding: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        .theory-section { text-align: center; }
+        .trick-number { font-size: 1.2rem; color: var(--accent-2); font-weight: 800; text-transform: uppercase; margin-bottom: 0.5rem; }
+        .trick-title { font-size: 2.2rem; font-weight: 800; color: #fff; }
+
+        .teacher-box {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border-left: 4px solid var(--success);
+            text-align: left;
+            margin-top: 1rem;
+        }
+        .teacher-box p { margin: 0; font-size: 1.05rem; line-height: 1.6; color: #cbd5e1; font-style: italic; }
+
+        .practical-section {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 20px;
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .example-header {
+            font-size: 1.1rem; color: var(--accent-2); margin-bottom: 2rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px;
+            background: rgba(129, 140, 248, 0.1); padding: 8px 24px; border-radius: 50px;
+        }
+
+        .steps-container { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; width: 100%; }
+
+        .math-stack {
+            display: flex; flex-direction: column; align-items: center; background: rgba(0,0,0,0.3);
+            padding: 1.5rem; border-radius: 16px; min-width: 150px; flex: 1;
+        }
+
+        .stack-row { font-family: monospace; font-size: 2rem; font-weight: 800; color: #fff; }
+        .step-desc { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; margin-top: 10px; font-weight: 800; }
+        .step-calc { font-size: 1.1rem; color: #fff; margin-top: 8px; font-weight: 800; background: var(--card-bg); padding: 5px 12px; border-radius: 8px; }
+        .step-answer { font-size: 1rem; color: var(--success); margin-top: 8px; font-weight: 600; }
+        .step-hint { font-size: 0.75rem; color: #94a3b8; margin-top: 10px; line-height: 1.4; text-align: center; font-style: italic; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 8px; }
+
+        .merge-arrow { width: 100%; text-align: center; font-size: 2rem; color: var(--text-muted); margin: 1.5rem 0; }
+        .final-result { 
+            font-size: 3.5rem; font-weight: 800; color: var(--success); 
+            background: rgba(52, 211, 153, 0.05); padding: 5px 30px; border-radius: 20px; border: 1px solid rgba(52, 211, 153, 0.2);
+            text-align: center;
+        }
+
+        /* Expand styles from multiplication */
+        .expand-btn {
+            background: rgba(129, 140, 248, 0.1);
+            color: var(--accent-2);
+            border: 1px dashed var(--accent-2);
+            padding: 12px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin: 1rem 0;
+        }
+        .expand-btn:hover { background: rgba(129, 140, 248, 0.2); transform: scale(1.01); }
+        .expand-btn.active { background: rgba(244, 114, 182, 0.1); color: var(--accent-3); border-color: var(--accent-3); }
+        .expandable { display: none; margin-bottom: 2rem; }
+        .expandable.show { display: block; animation: fadeIn 0.4s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+
+        .pinned-card { border: 2px solid var(--accent-2); box-shadow: 0 0 30px rgba(129, 140, 248, 0.2); }
+
+        .back-link { position: absolute; top: 2rem; left: 2rem; color: var(--text-muted); text-decoration: none; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+        .back-link:hover { color: #fff; }
+
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="back-link">← Hub</a>
+
+    <header>
+        <h1>The Cube Citadel</h1>
+        <p class="subtitle">Enter the third dimension of mental math. Master the Vedic Ratio method for 2-digit cubes and unlock specialized shortcuts for same-digit and base-centered calculations.</p>
+    </header>
+
+    <div class="reference-box" style="margin: 0 auto 3rem;">
+        <div class="reference-header">
+            <h2>Crystal Reference Wall</h2>
+            <span>Quick Recall (1-30)</span>
+        </div>
+        <div class="dashboard-grid" id="cubeDashboard">
+            <!-- Populated by JS -->
+        </div>
+    </div>
+
+    <div class="container">
+
+        <!-- Universal Pinned Method -->
+        <div class="trick-card pinned-card">
+            <div class="theory-section">
+                <div class="trick-number">Method 01 (Pinned: Universal)</div>
+                <div class="trick-title">The Master Ratio Method</div>
+                <div class="teacher-box">
+                    <p>"This is the absolute core of Vedic Cubification. It works for ANY 2-digit number by creating a perfect geometric progression of $a^3, a^2b, ab^2, b^3$. Master this, and you can cube anything!"</p>
+                </div>
+            </div>
+
+            <div class="practical-section">
+                <div class="example-header">Case 1: Standard 2-Digit (12³)</div>
+                <div class="steps-container">
+                    <div class="math-stack">
+                        <div class="step-desc">1. Base Columns</div>
+                        <div class="step-calc">1 | 2 | 4 | 8</div>
+                        <div class="step-hint">a³ | a²b | ab² | b³ (Ratio 1:2)</div>
+                    </div>
+                    <div class="math-stack">
+                        <div class="step-desc">2. Double Middle</div>
+                        <div class="step-calc">_ | 4 | 8 | _</div>
+                        <div class="step-hint">Always double only the middle two results.</div>
+                    </div>
+                </div>
+                <div class="merge-arrow">↓ Sum columns vertically</div>
+                <div class="final-result">1728</div>
+            </div>
+
+            <!-- Expandable 1: Starts with 1 -->
+            <button class="expand-btn" data-type="Starts with 1" onclick="toggleExpand(this)">
+                <span>Show specialized "Starts with 1" Demo (13³)</span><span>▶</span>
+            </button>
+            <div class="practical-section expandable">
+                <div class="example-header">Starts with 1 Demo: 13³</div>
+                <div class="steps-container">
+                    <div class="math-stack">
+                        <div class="step-desc">1. Sequence</div>
+                        <div class="step-calc">1 | 3 | 9 | 27</div>
+                        <div class="step-hint">Just write 1, then the digit, then its sq, then its cube!</div>
+                    </div>
+                    <div class="math-stack">
+                        <div class="step-desc">2. Double</div>
+                        <div class="step-calc">_ | 6 | 18 | _</div>
+                        <div class="step-hint">Double the middle 3 and 9.</div>
+                    </div>
+                </div>
+                <div class="merge-arrow">↓ Sum & Carry</div>
+                <div class="final-result">2197</div>
+            </div>
+
+             <!-- Expandable 2: Same Digits -->
+             <button class="expand-btn" data-type="Same Digits" onclick="toggleExpand(this)">
+                <span>Show specialized "Same Digits" Demo (22³)</span><span>▶</span>
+            </button>
+            <div class="practical-section expandable">
+                <div class="example-header">Same Digits Demo: 22³</div>
+                <div class="steps-container">
+                    <div class="math-stack">
+                        <div class="step-desc">1. Sequence</div>
+                        <div class="step-calc">8 | 8 | 8 | 8</div>
+                        <div class="step-hint">Cube the digit (2) and write it 4 times. Easy!</div>
+                    </div>
+                    <div class="math-stack">
+                        <div class="step-desc">2. Double</div>
+                        <div class="step-calc">_ | 16 | 16 | _</div>
+                        <div class="step-hint">Double the middle two 8s.</div>
+                    </div>
+                </div>
+                <div class="merge-arrow">↓ Sum & Carry</div>
+                <div class="final-result">10648</div>
+            </div>
+        </div>
+
+        <!-- Method 02: Ending in 1 -->
+        <div class="trick-card">
+            <div class="theory-section">
+                <div class="trick-number">Method 02</div>
+                <div class="trick-title">Cubes Ending in 1 (21, 31...)</div>
+                <div class="teacher-box">
+                    <p>"This is the reverse of the 'Starts with 1' method. Write the base columns from right to left (1, b, b², b³), double the middle, and you're done!"</p>
+                </div>
+            </div>
+
+            <div class="practical-section">
+                <div class="example-header">Problem: 21³</div>
+                <div class="steps-container">
+                    <div class="math-stack">
+                        <div class="step-desc">1. Right-to-Left Base</div>
+                        <div class="step-calc">8 | 4 | 2 | 1</div>
+                        <div class="step-hint">Start with 1 on far right, then tens digit (2), then 2², then 2³.</div>
+                    </div>
+                    <div class="math-stack">
+                        <div class="step-desc">2. Double Middle</div>
+                        <div class="step-calc">_ | 8 | 4 | _</div>
+                        <div class="step-hint">Double the 4 and the 2.</div>
+                    </div>
+                </div>
+                <div class="merge-arrow">↓ Sum & Merge</div>
+                <div class="final-result">9261</div>
+            </div>
+        </div>
+
+        <!-- Method 3: Near Base 100 -->
+        <div class="trick-card">
+            <div class="theory-section">
+                <div class="trick-number">Method 03</div>
+                <div class="trick-title">Near 100 Base Method</div>
+                <div class="teacher-box">
+                    <p>"For numbers near 100, use this pattern: (N + 2d) | 3d² | d³. It uses the deviation (d) from 100 to build the cube in three clean chunks."</p>
+                </div>
+            </div>
+
+            <div class="practical-section">
+                <div class="example-header">Problem: 102³</div>
+                <div class="steps-container">
+                    <div class="math-stack">
+                        <div class="step-desc">1. N + 2d</div>
+                        <div class="step-calc">102 + 4 = 106</div>
+                        <div class="step-hint">Deviation (d) is 2. So 102 + (2x2) = 106.</div>
+                    </div>
+                    <div class="math-stack">
+                        <div class="step-desc">2. 3 × d²</div>
+                        <div class="step-calc">3 × 4 = 12</div>
+                        <div class="step-hint">Triple the square of the deviation. 3 x 4 = 12.</div>
+                    </div>
+                    <div class="math-stack">
+                        <div class="step-desc">3. d³</div>
+                        <div class="step-calc">2³ = 08</div>
+                        <div class="step-hint">Cube the deviation. (Must be 2 digits, so 08).</div>
+                    </div>
+                </div>
+                <div class="merge-arrow">↓ Merge chunks</div>
+                <div class="final-result">1061208</div>
+            </div>
+        <!-- Method 04: Near 50 Base Method -->
+        <div class="trick-card">
+            <div class="theory-section">
+                <div class="trick-number">Method 04</div>
+                <div class="trick-title">Near 50 Base Method</div>
+                <div class="teacher-box">
+                    <p>"When near 50, we use 125,000 as our base (since 50³ = 125k). Add 7,500 for every unit above 50, then 150 for every unit squared. It’s a bit of addition but far faster than long multiplication!"</p>
+                </div>
+            </div>
+
+            <div class="practical-section">
+                <div class="example-header">Problem: 52³</div>
+                <div class="steps-container">
+                    <div class="math-stack">
+                        <div class="step-desc">1. Base Offset</div>
+                        <div class="step-calc">125,000 + (2 × 7,500)</div>
+                        <div class="step-answer">140,000</div>
+                        <div class="step-hint">50³ is 125k. Each step from 50 adds roughly 7,500 to the volume.</div>
+                    </div>
+                    <div class="math-stack">
+                        <div class="step-desc">2. Second Correction</div>
+                        <div class="step-calc">150 × 2² = 600</div>
+                        <div class="step-hint">Triple the base (50) times the deviation squared. 150 × 4.</div>
+                    </div>
+                    <div class="math-stack">
+                        <div class="step-desc">3. Final Cube</div>
+                        <div class="step-calc">2³ = 8</div>
+                        <div class="step-hint">Simply add the cube of the deviation at the end. (140,000 + 600 + 8)</div>
+                    </div>
+                </div>
+                <div class="merge-arrow">↓ Final Sum</div>
+                <div class="final-result">140,608</div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const dashboard = document.getElementById('cubeDashboard');
+        for (let group = 0; group < 3; group++) {
+            const start = (group * 10) + 1;
+            const end = (group + 1) * 10;
+            const col = document.createElement('div');
+            col.className = 'group-column';
+            const title = document.createElement('div');
+            title.className = 'group-title'; title.innerText = `${start} - ${end}`;
+            col.appendChild(title);
+            for (let i = start; i <= end; i++) {
+                const item = document.createElement('div');
+                item.className = 'ref-item';
+                item.innerHTML = `<span class="base">${i}³</span><span class="result">${(i*i*i).toLocaleString()}</span>`;
+                col.appendChild(item);
+            }
+            dashboard.appendChild(col);
+        }
+
+        function toggleExpand(btn) {
+            const expandable = btn.nextElementSibling;
+            const type = btn.getAttribute('data-type');
+            if (expandable.classList.contains('show')) {
+                expandable.classList.remove('show');
+                btn.classList.remove('active');
+                btn.innerHTML = `<span>Show specialized "${type}" Demo</span><span>▶</span>`;
+            } else {
+                expandable.classList.add('show');
+                btn.classList.add('active');
+                btn.innerHTML = `<span>Hide specialized "${type}" Demo</span><span>▼</span>`;
+            }
+        }
+    </script>
+</body>
+</html>

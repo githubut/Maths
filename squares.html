@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Square Shortcuts: 5 Magic Methods</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0b1120;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --card-bg: #1e293b;
+            --accent-1: #38bdf8;
+            --accent-2: #818cf8;
+            --accent-3: #f472b6;
+            --accent-4: #fbbf24;
+            --success: #34d399;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-color);
+            background-image:
+                radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.15) 0 transparent 50%),
+                radial-gradient(at 100% 100%, rgba(244, 114, 182, 0.15) 0 transparent 50%);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        header {
+            text-align: center;
+            padding: 5rem 2rem 2rem;
+            position: relative;
+            max-width: 800px;
+        }
+
+        h1 {
+            font-size: 3.8rem;
+            margin: 0;
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-3));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            line-height: 1.1;
+        }
+
+        p.subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-top: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 95%;
+            padding: 3rem 0 5rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+
+        .trick-card {
+            background-color: var(--card-bg);
+            border-radius: 24px;
+            padding: 3rem;
+            position: relative;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .theory-section {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .trick-number {
+            font-size: 1.2rem;
+            color: var(--accent-2);
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .trick-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            color: #fff;
+            line-height: 1.2;
+        }
+
+        .teacher-box {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin: 1rem auto 0;
+            border-left: 4px solid var(--success);
+            text-align: left;
+        }
+
+        .teacher-box p {
+            margin: 0;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: #cbd5e1;
+            font-style: italic;
+        }
+
+        .practical-section {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 20px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .example-header {
+            font-size: 1.1rem;
+            color: var(--accent-1);
+            margin-bottom: 2rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: rgba(56, 189, 248, 0.1);
+            padding: 8px 24px;
+            border-radius: 50px;
+        }
+
+        .steps-container {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .math-stack {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1.5rem;
+            border-radius: 16px;
+            min-width: 180px;
+            flex: 1;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .stack-row {
+            font-family: monospace;
+            font-size: 2.5rem;
+            letter-spacing: 5px;
+            font-weight: 800;
+            color: #fff;
+        }
+
+        .step-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-top: 10px;
+            font-weight: 800;
+            text-align: center;
+        }
+
+        .step-calc {
+            font-size: 1.3rem;
+            color: #fff;
+            margin-top: 8px;
+            font-weight: 800;
+            background: var(--card-bg);
+            padding: 5px 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .step-answer {
+            font-size: 1.1rem;
+            color: var(--success);
+            margin-top: 8px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .step-hint {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            margin-top: 12px;
+            line-height: 1.4;
+            text-align: center;
+            font-style: italic;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 8px;
+            width: 100%;
+        }
+
+        .merge-arrow {
+            width: 100%;
+            text-align: center;
+            font-size: 2rem;
+            color: var(--text-muted);
+            margin: 1.5rem 0 0.5rem;
+        }
+
+        .final-result {
+            font-size: 4rem;
+            font-weight: 800;
+            color: var(--success);
+            text-shadow: 0 0 30px rgba(52, 211, 153, 0.4);
+            background: rgba(52, 211, 153, 0.05);
+            padding: 10px 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(52, 211, 153, 0.2);
+        }
+
+        .back-link {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover {
+            color: #fff;
+        }
+
+        .hl-blue {
+            color: var(--accent-1);
+            text-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
+        }
+
+        .hl-pink {
+            color: var(--accent-3);
+            text-shadow: 0 0 15px rgba(244, 114, 182, 0.4);
+        }
+
+        .hl-yellow {
+            color: var(--accent-4);
+            text-shadow: 0 0 15px rgba(251, 191, 36, 0.4);
+        }
+        /* Reference Table Upgrade */
+        .reference-box {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(20px);
+            border-radius: 32px;
+            padding: 3rem;
+            width: 95%;
+            max-width: 1250px;
+            margin-top: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+        .reference-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-bottom: 1.5rem;
+        }
+        .reference-header h2 { font-size: 1.8rem; margin: 0; font-weight: 800; color: #fff; }
+        .reference-header span { color: var(--accent-1); font-weight: 600; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 2rem;
+        }
+
+        @media (max-width: 1100px) { .dashboard-grid { grid-template-columns: repeat(3, 1fr); } }
+        @media (max-width: 700px) { .dashboard-grid { grid-template-columns: repeat(2, 1fr); } }
+
+        .group-column {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .group-title {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .group-title::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.05); }
+
+        .ref-item {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 12px 18px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid rgba(255,255,255,0.03);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .ref-item:hover {
+            background: rgba(56, 189, 248, 0.1);
+            border-color: rgba(56, 189, 248, 0.3);
+            transform: translateX(5px);
+            box-shadow: -5px 0 15px rgba(56, 189, 248, 0.1);
+        }
+        .ref-item .base { color: var(--text-muted); font-family: monospace; font-size: 1.1rem; }
+        .ref-item .result { color: #fff; font-weight: 800; font-size: 1.2rem; }
+        
+        .ref-item:nth-child(even) { background: rgba(255,255,255,0.01); }
+
+    </style>
+</head>
+
+<body>
+
+    <a href="index.html" class="back-link">← Hub</a>
+
+    <header>
+        <h1>Square Shortcut Sanctuary</h1>
+        <p class="subtitle">Stop calculating, start observing. These 5 techniques allow you to square 2 and 3 digit
+            numbers mentally in under 5 seconds by using "Base Numbers."</p>
+    </header>
+
+    <div class="reference-box" style="margin: 0 auto 3rem;">
+        <div class="reference-header">
+            <h2>Master Reference Wall</h2>
+            <span>Quick Recall (1-50)</span>
+        </div>
+        <div class="dashboard-grid" id="squareDashboard">
+            <!-- Populated by JS -->
+        </div>
+    </div>
+
+    <div class="container">
+
+        <!-- Method 1: Near 50 -->
+        <div class="trick-card">
+            <div class="theory-section">
+                <div class="trick-number">Method 01 (The magic 25)</div>
+                <div class="trick-title">Near 50 Base Method</div>
+                <div class="teacher-box">
+                    <p>"When squaring numbers near 50, use 25 as your anchor. See how far the number is from 50 (the
+                        deviation). Add/subtract that deviation to 25 for the first half, then square the deviation for
+                        the second half!"</p>
+                </div>
+            </div>
+
+            <div class="practical-section">
+                <div class="example-header">Problem: 53² (53 × 53)</div>
+                <div class="steps-container">
+                    <div class="math-stack">
+                        <div class="stack-row"><span class="hl-blue">53</span></div>
+                        <div class="step-desc">1. Distance from 50</div>
+                        <div class="step-calc">+3</div>
+                        <div class="step-hint">53 is 3 more than 50. Our deviation is 3.</div>
+                    </div>
+                    <div class="math-stack">
+                        <div class="step-desc">2. First Half (Anchor 25)</div>
+                        <div class="step-calc">25 + 3 = 28</div>
+                        <div class="step-answer">Writes: 28 _ _</div>
+                        <div class="step-hint">Always use 25 for numbers near 50. Add our deviation (3) to it.</div>
+                    </div>
+                    <div class="math-stack">
+                        <div class="step-desc">3. Second Half (Square it)</div>
+                        <div class="step-calc">3² = 09</div>
+                        <div class="step-answer">Writes: 28 09</div>
+                        <div class="step-hint">Square the deviation. Use two digits! (3² is 09, not just 9)</div>
+                    </div>
+                </div>
+                <div class="merge-arrow">↓</div>
+                <div class="final-result">2809</div>
+            </div>
+        </div>
+
+        <!-- Method 2: Near 100 -->
+        <div class="trick-card">
+            <div class="theory-section">
+                <div class="trick-number">Method 02</div>
+                <div class="trick-title">Near 100 Base Method</div>
+                <div class="teacher-box">
+                    <p>"For numbers near 100, the number itself is the anchor! Subtract/Add the distance from 100 to the
+                        original number for the first half, then square the distance for the second half."</p>
+                </div>
+            </div>
+
+            <div class="practical-section">
+                <div class="example-header">Problem: 96²</div>
+                <div class="steps-container">
+                    <div class="math-stack">
+                        <div class="stack-row"><span class="hl-pink">96</span></div>
+                        <div class="step-desc">1. Distance from 100</div>
+                        <div class="step-calc">-4</div>
+                        <div class="step-hint">96 is 4 less than 100. Our deviation is -4.</div>
+                    </div>
+                    <div class="math-stack">
+                        <div class="step-desc">2. First Half (Self-Anchor)</div>
+                        <div class="step-calc">96 - 4 = 92</div>
+                        <div class="step-answer">Writes: 92 _ _</div>
+                        <div class="step-hint">Take the original number (96) and apply the deviation (-4) to it.</div>
+                    </div>
+                    <div class="math-stack">
+                        <div class="step-desc">3. Second Half (Square it)</div>
+                        <div class="step-calc">4² = 16</div>
+                        <div class="step-answer">Writes: 92 16</div>
+                        <div class="step-hint">Square the deviation (4). That fills the final two spots.</div>
+                    </div>
+                </div>
+                <div class="merge-arrow">↓</div>
+                <div class="final-result">9216</div>
+            </div>
+        </div>
+
+        <!-- Method 3: Numbers Ending in 5 -->
+        <div class="trick-card">
+            <div class="theory-section">
+                <div class="trick-number">Method 03</div>
+                <div class="trick-title">The "Five-End" Trick</div>
+                <div class="teacher-box">
+                    <p>"This is the fastest of them all. If it ends in 5, the answer ALWAYS ends in 25. For the first
+                        half, just multiply the tens digit by the next highest digit. Instant answer!"</p>
+                </div>
+            </div>
+
+            <div class="practical-section">
+                <div class="example-header">Problem: 75²</div>
+                <div class="steps-container">
+                    <div class="math-stack">
+                        <div class="stack-row"><span class="hl-yellow">7</span><span
+                                style="color:rgba(255,255,255,0.2)">5</span></div>
+                        <div class="step-desc">1. Tens × (Tens + 1)</div>
+                        <div class="step-calc">7 × 8 = 56</div>
+                        <div class="step-answer">Writes: 56 _ _</div>
+                        <div class="step-hint">Take the first digit (7) and multiply it by 8.</div>
+                    </div>
+                    <div class="math-stack">
+                        <div class="stack-row"><span style="color:rgba(255,255,255,0.2)">7</span><span
+                                class="hl-yellow">5</span></div>
+                        <div class="step-desc">2. Always 25</div>
+                        <div class="step-calc">5² = 25</div>
+                        <div class="step-answer">Writes: 56 25</div>
+                        <div class="step-hint">The square of any number ending in 5 always finishes with 25.</div>
+                    </div>
+                </div>
+                <div class="merge-arrow">↓</div>
+                <div class="final-result">5625</div>
+            </div>
+        </div>
+
+        <!-- Method 4: Universal 2-Digit Square -->
+        <div class="trick-card">
+            <div class="theory-section">
+                <div class="trick-number">Method 04</div>
+                <div class="trick-title">Universal 2-Digit Square</div>
+                <div class="teacher-box">
+                    <p>"No fancy base near you? Use this universal algebraic shortcut: Square the first, Multiply first
+                        x second x 2, then Square the third. Push them together!"</p>
+                </div>
+            </div>
+
+            <div class="practical-section">
+                <div class="example-header">Problem: 32²</div>
+                <div class="steps-container">
+                    <div class="math-stack">
+                        <div class="stack-row"><span class="hl-blue">3</span><span
+                                style="color:rgba(255,255,255,0.2)">2</span></div>
+                        <div class="step-desc">1. Square the First (A²)</div>
+                        <div class="step-calc">3² = 9</div>
+                        <div class="step-hint">The first part involves squaring the tens digit.</div>
+                    </div>
+                    <div class="math-stack">
+                        <div class="stack-row"><span class="hl-blue">3</span><span class="hl-pink">2</span></div>
+                        <div class="step-desc">2. Double Product (2AB)</div>
+                        <div class="step-calc">2 × (3×2) = 12</div>
+                        <div class="step-hint">Multiply both digits together (6), then double it (12). Carry the 1!
+                        </div>
+                    </div>
+                    <div class="math-stack">
+                        <div class="stack-row"><span style="color:rgba(255,255,255,0.2)">3</span><span
+                                class="hl-pink">2</span></div>
+                        <div class="step-desc">3. Square the Last (B²)</div>
+                        <div class="step-calc">2² = 4</div>
+                        <div class="step-hint">Square the unit digit. (Result: 9 | 12 | 4)</div>
+                    </div>
+                </div>
+                <div class="merge-arrow">↓ Carry the 1 from '12' to the '9'</div>
+                <div class="final-result">1024</div>
+            </div>
+        </div>
+
+        <!-- Method 5: Numbers ending in 1 -->
+        <div class="trick-card">
+            <div class="theory-section">
+                <div class="trick-number">Method 05</div>
+                <div class="trick-title">The "Step from Zero" Trick</div>
+                <div class="teacher-box">
+                    <p>"Numbers ending in 1 are just one step away from a much easier square. Square the round number,
+                        then add the sum of the numbers to it. It sounds complex but it's pure addition!"</p>
+                </div>
+            </div>
+
+            <div class="practical-section">
+                <div class="example-header">Problem: 31²</div>
+                <div class="steps-container">
+                    <div class="math-stack">
+                        <div class="step-desc">1. Square the Base</div>
+                        <div class="step-calc">30² = 900</div>
+                        <div class="step-hint">Square the round number just below it (30 x 30).</div>
+                    </div>
+                    <div class="math-stack">
+                        <div class="step-desc">2. Add the Sum</div>
+                        <div class="step-calc">30 + 31 = 61</div>
+                        <div class="step-hint">Add the base (30) and the target (31) together.</div>
+                    </div>
+                    <div class="math-stack">
+                        <div class="step-desc">3. Final Addition</div>
+                        <div class="step-calc">900 + 61</div>
+                        <div class="step-hint">Combine your two easy numbers!</div>
+                    </div>
+                </div>
+                <div class="merge-arrow">↓</div>
+                <div class="final-result">961</div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const dashboard = document.getElementById('squareDashboard');
+        
+        for (let group = 0; group < 5; group++) {
+            const start = (group * 10) + 1;
+            const end = (group + 1) * 10;
+            
+            const column = document.createElement('div');
+            column.className = 'group-column';
+            
+            const title = document.createElement('div');
+            title.className = 'group-title';
+            title.innerText = `${start} - ${end}`;
+            column.appendChild(title);
+            
+            for (let i = start; i <= end; i++) {
+                const item = document.createElement('div');
+                item.className = 'ref-item';
+                item.innerHTML = `
+                    <span class="base">${i}²</span>
+                    <span class="result">${i * i}</span>
+                `;
+                column.appendChild(item);
+            }
+            
+            dashboard.appendChild(column);
+        }
+    </script>
+</body>
+
+</html>
