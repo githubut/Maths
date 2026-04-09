@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maths Addition: 10 Teacher-Taught Tricks</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0b1120;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --card-bg: #1e293b;
+            --accent-1: #38bdf8;
+            --accent-2: #818cf8;
+            --accent-3: #f472b6;
+            --accent-4: #fbbf24;
+            --success: #34d399;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.15) 0 transparent 50%), 
+                radial-gradient(at 100% 100%, rgba(244, 114, 182, 0.15) 0 transparent 50%);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        header {
+            text-align: center;
+            padding: 5rem 2rem 2rem;
+            position: relative;
+            max-width: 800px;
+        }
+
+        h1 {
+            font-size: 3.8rem;
+            margin: 0;
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-3));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            line-height: 1.1;
+        }
+
+        p.subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-top: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            width: 92%;
+            padding: 3rem 0 5rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+
+        /* Card Styles */
+        .trick-card {
+            background-color: var(--card-bg);
+            border-radius: 24px;
+            padding: 3rem;
+            position: relative;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 3rem;
+            transition: transform 0.3s ease;
+        }
+
+        .trick-card:hover {
+            transform: translateY(-5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 900px) {
+            .trick-card {
+                grid-template-columns: 1fr;
+                padding: 2rem;
+                gap: 2rem;
+            }
+            .split-branches {
+                flex-direction: column;
+            }
+        }
+
+        /* Top 2 Highlights */
+        .quickest-badge {
+            background: linear-gradient(145deg, #1e293b 0%, #1e1b4b 100%);
+            border: 1px solid var(--accent-2);
+            box-shadow: 0 0 30px rgba(129, 140, 248, 0.2);
+        }
+
+        .quickest-badge::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 5px;
+            background: linear-gradient(90deg, var(--accent-4), var(--accent-3));
+        }
+
+        .badge-tag {
+            position: absolute;
+            top: 20px;
+            right: -30px;
+            background: var(--accent-4);
+            color: #000;
+            font-weight: 800;
+            padding: 8px 40px;
+            transform: rotate(45deg);
+            font-size: 0.9rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            z-index: 10;
+        }
+
+        .theory-section { display: flex; flex-direction: column; justify-content: center; }
+        .trick-number { font-size: 1.2rem; color: var(--accent-2); font-weight: 800; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 2px; }
+        .trick-title { font-size: 2.2rem; font-weight: 800; margin-bottom: 1.5rem; color: #fff; line-height: 1.2; }
+
+        .teacher-box {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+            position: relative;
+            border-left: 4px solid var(--success);
+        }
+        .teacher-box p { margin: 0; font-size: 1.05rem; line-height: 1.6; color: #cbd5e1; font-style: italic; }
+        .teacher-box::before {
+            content: '👨‍🏫 Teacher says:';
+            display: block; font-weight: 800; font-style: normal; color: var(--success); margin-bottom: 0.5rem; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px;
+        }
+
+        .examples-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .practical-section {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .digit-3.expandable {
+            display: none;
+        }
+
+        .digit-3.expandable.show {
+            display: flex;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Expand Button */
+        .expand-btn {
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--accent-1);
+            border: 1px dashed var(--accent-1);
+            padding: 12px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .expand-btn:hover {
+            background: rgba(56, 189, 248, 0.2);
+            transform: scale(1.02);
+        }
+
+        .expand-btn.active {
+            background: rgba(244, 114, 182, 0.1);
+            color: var(--accent-3);
+            border-color: var(--accent-3);
+        }
+
+        .example-header {
+            font-size: 1rem; color: var(--text-muted); margin-bottom: 1.5rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; text-align: center;
+        }
+
+        .graphic { display: flex; flex-direction: column; align-items: center; font-family: monospace; font-size: 1.5rem; color: #fff; }
+        .row { display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 15px; flex-wrap: wrap; }
+        .node { background: var(--card-bg); border: 2px solid var(--accent-1); border-radius: 12px; padding: 10px 20px; font-weight: 800; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        .node.pink { border-color: var(--accent-3); }
+        .node.purple { border-color: var(--accent-2); }
+        .node.yellow { border-color: var(--accent-4); }
+
+        .arrow { color: var(--text-muted); font-size: 1.2rem; display: flex; flex-direction: column; align-items: center; text-align: center;}
+        .arrow-text { font-size: 1.4rem; color: var(--accent-4); margin-bottom: -5px; }
+        .final-result { font-size: 3rem; font-weight: 800; color: var(--success); text-shadow: 0 0 20px rgba(52, 211, 153, 0.4); margin-top: 1rem; text-align:center; }
+        .connector-line { width: 2px; height: 30px; background: var(--text-muted); margin: 5px 0; }
+        .bracket { border-bottom: 2px solid var(--text-muted); border-left: 2px solid var(--text-muted); border-right: 2px solid var(--text-muted); height: 15px; width: 100px; border-radius: 0 0 10px 10px; margin: 10px 0; }
+
+        .split-branches { display: flex; gap: 20px; margin-top: 10px; flex-wrap: nowrap;}
+        .branch { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+
+        .print-btn {
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+            color: #fff;
+            border: none;
+            padding: 12px 28px;
+            font-size: 1.1rem;
+            font-weight: 800;
+            font-family: inherit;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 1.5rem;
+            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.4);
+            transition: transform 0.2s;
+        }
+
+        .print-btn:hover {
+            transform: scale(1.05);
+        }
+
+        @media print {
+            .print-btn {
+                display: none !important;
+            }
+            .expand-btn {
+                display: none !important;
+            }
+            .digit-3.expandable {
+                display: flex !important;
+                border-top: 1px dashed rgba(255,255,255,0.2);
+                margin-top: 1.5rem;
+                padding-top: 1.5rem;
+            }
+            .trick-card {
+                page-break-inside: avoid;
+                margin-bottom: 2rem !important;
+            }
+            body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Master Mental Addition</h1>
+        <p class="subtitle">10 Powerful teacher-tested methods. Learn the core 2-digit concept, and click the buttons below each trick to see it expand instantly for 3-digits!</p>
+        <button class="print-btn" onclick="window.print()">🖨️ Print Cheat Sheet</button>
+    </header>
+
+    <div class="container">
+
+        <!-- Method 1 -->
+        <div class="trick-card quickest-badge">
+            <div class="badge-tag">Top Tier</div>
+            <div class="theory-section">
+                <div class="trick-number">Method 01 (Fastest)</div>
+                <div class="trick-title">Left-to-Right Addition</div>
+                <div class="teacher-box">
+                    <p>"When you read a book, you read left-to-right. We speak numbers left-to-right. So why add right-to-left? Start with the biggest chunks (Hundreds, then Tens). It holds the numbers in your working memory much better!"</p>
+                </div>
+            </div>
+            
+            <div class="examples-container">
+                <!-- 2 DIGIT -->
+                <div class="practical-section digit-2">
+                    <div class="example-header">Problem: 46 + 38</div>
+                    <div class="graphic">
+                        <div class="row" style="font-size: 2rem;">
+                            <span style="color:var(--accent-1)">4</span><span style="color:var(--text-muted)">6</span>
+                            <span style="margin: 0 15px;">+</span>
+                            <span style="color:var(--accent-1)">3</span><span style="color:var(--text-muted)">8</span>
+                        </div>
+                        <div class="arrow"><span class="arrow-text">1. Add the Tens (40 + 30)</span>↓</div>
+                        <div class="node">70</div>
+                        <div class="arrow"><span class="arrow-text">2. Add the Units (6 + 8)</span>↓</div>
+                        <div class="node pink">+ 14</div>
+                        <div class="final-result">84</div>
+                    </div>
+                </div>
+
+                <button class="expand-btn" onclick="toggleExpand(this)">
+                    <span>Show 3-Digit Example</span>
+                    <span>▶</span>
+                </button>
+
+                <!-- 3 DIGIT -->
+                <div class="practical-section digit-3 expandable">
+                    <div class="example-header">Problem: 456 + 328</div>
+                    <div class="graphic">
+                        <div class="row" style="font-size: 2rem;">
+                            <span style="color:var(--accent-1)">4</span><span style="color:var(--accent-2)">5</span><span style="color:var(--text-muted)">6</span>
+                            <span style="margin: 0 15px;">+</span>
+                            <span style="color:var(--accent-1)">3</span><span style="color:var(--accent-2)">2</span><span style="color:var(--text-muted)">8</span>
+                        </div>
+                        <div class="arrow"><span class="arrow-text">1. Add the Hundreds (400 + 300)</span>↓</div>
+                        <div class="node">700</div>
+                        <div class="arrow"><span class="arrow-text">2. Add the Tens (50 + 20)</span>↓</div>
+                        <div class="node purple">+ 70</div>
+                        <div class="arrow"><span class="arrow-text">3. Add the Units (6 + 8)</span>↓</div>
+                        <div class="node pink">+ 14</div>
+                        <div class="arrow"><span class="arrow-text">Combine them! 770 + 14</span>↓</div>
+                        <div class="final-result">784</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Method 2 -->
+        <div class="trick-card quickest-badge">
+            <div class="badge-tag">Top Tier</div>
+            <div class="theory-section">
+                <div class="trick-number">Method 02 (Fastest)</div>
+                <div class="trick-title">Rounding & Adjusting</div>
+                <div class="teacher-box">
+                    <p>"If a number is VERY close to an easy 'friendly' number (like 50, 100, or 1000). Just pretend it's that friendly number, add it quickly, and then take away the difference as an apology. It's a massive time-saver!"</p>
+                </div>
+            </div>
+            
+            <div class="examples-container">
+                <!-- 2 DIGIT -->
+                <div class="practical-section digit-2">
+                    <div class="example-header">Problem: 56 + 39</div>
+                    <div class="graphic">
+                        <div class="row">
+                            <div class="node">56</div><span style="font-size: 2rem;">+</span><div class="node yellow">39</div>
+                        </div>
+                        <div class="arrow" style="flex-direction: row; margin: 15px 0;">
+                            <span style="margin-right: 15px; color:var(--accent-4);">Pretend 39 is 40!</span>
+                            <span style="font-size: 2rem;">👉</span>
+                            <div class="node" style="margin-left: 15px;">56 + 40 = 96</div>
+                        </div>
+                        <div class="arrow"><span class="arrow-text">Hold on, we overshot by 1!</span>↓</div>
+                        <div class="node pink">- 1</div>
+                        <div class="final-result">95</div>
+                    </div>
+                </div>
+
+                <button class="expand-btn" onclick="toggleExpand(this)">
+                    <span>Show 3-Digit Example</span>
+                    <span>▶</span>
+                </button>
+
+                <!-- 3 DIGIT -->
+                <div class="practical-section digit-3 expandable">
+                    <div class="example-header">Problem: 586 + 399</div>
+                    <div class="graphic">
+                        <div class="row">
+                            <div class="node">586</div><span style="font-size: 2rem;">+</span><div class="node yellow">399</div>
+                        </div>
+                        <div class="arrow" style="flex-direction: row; margin: 15px 0;">
+                            <span style="margin-right: 15px; color:var(--accent-4);">Pretend 399 is 400!</span>
+                            <span style="font-size: 2rem;">👉</span>
+                            <div class="node" style="margin-left: 15px;">586 + 400 = 986</div>
+                        </div>
+                        <div class="arrow"><span class="arrow-text">We overshot by 1 again!</span>↓</div>
+                        <div class="node pink">- 1</div>
+                        <div class="final-result">985</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Method 3 -->
+        <div class="trick-card">
+            <div class="theory-section">
+                <div class="trick-number">Method 03</div>
+                <div class="trick-title">Decomposition (Split & Merge)</div>
+                <div class="teacher-box">
+                    <p>"Think of numbers like Lego bricks. You break both numbers into their place values, group identical chunks together, and merge them!"</p>
+                </div>
+            </div>
+            
+            <div class="examples-container">
+                <!-- 2 DIGIT -->
+                <div class="practical-section digit-2">
+                    <div class="example-header">Problem: 34 + 52</div>
+                    <div class="graphic">
+                        <div class="split-branches">
+                            <div class="branch">
+                                <span style="color:var(--accent-1);">Tens</span>
+                                <div class="node">30 + 50 = 80</div>
+                            </div>
+                            <div class="branch">
+                                <span style="color:var(--accent-3);">Ones</span>
+                                <div class="node pink">4 + 2 = 6</div>
+                            </div>
+                        </div>
+                        <div class="arrow"><span class="arrow-text">Re-combine</span>↓</div>
+                        <div class="final-result">86</div>
+                    </div>
+                </div>
+
+                <button class="expand-btn" onclick="toggleExpand(this)">
+                    <span>Show 3-Digit Example</span>
+                    <span>▶</span>
+                </button>
+
+                <!-- 3 DIGIT -->
+                <div class="practical-section digit-3 expandable">
+                    <div class="example-header">Problem: 342 + 527</div>
+                    <div class="graphic">
+                        <div class="split-branches">
+                            <div class="branch">
+                                <span style="color:var(--accent-2);">Hundreds</span>
+                                <div class="node purple">300 + 500</div>
+                                <div class="node" style="font-size:1.2rem; background:rgba(129, 140, 248,0.2)">800</div>
+                            </div>
+                            <div class="branch">
+                                <span style="color:var(--accent-1);">Tens</span>
+                                <div class="node">40 + 20</div>
+                                <div class="node" style="font-size:1.2rem; background:rgba(56, 189, 248, 0.2)">60</div>
+                            </div>
+                            <div class="branch">
+                                <span style="color:var(--accent-3);">Ones</span>
+                                <div class="node pink">2 + 7</div>
+                                <div class="node" style="font-size:1.2rem; background:rgba(244, 114, 182, 0.2)">9</div>
+                            </div>
+                        </div>
+                        <div class="arrow" style="margin-top:15px;"><span class="arrow-text">Merge 800 + 60 + 9</span>↓</div>
+                        <div class="final-result">869</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Method 4 -->
+        <div class="trick-card">
+            <div class="theory-section">
+                <div class="trick-number">Method 04</div>
+                <div class="trick-title">Making Tens / Hundreds</div>
+                <div class="teacher-box">
+                    <p>"Your brain LOVES clean zeros. Steal from one number to pump the other up to a clean ten or a clean hundred."</p>
+                </div>
+            </div>
+            
+            <div class="examples-container">
+                <!-- 2 DIGIT -->
+                <div class="practical-section digit-2">
+                    <div class="example-header">Problem: 28 + 15</div>
+                    <div class="graphic">
+                        <div class="row">
+                            <div class="node purple">28</div><span style="font-size: 2rem;">+</span><div class="node">15</div>
+                        </div>
+                        <div class="arrow"><span class="arrow-text">28 is hungry for 2. Steal 2 from 15.</span>↙  ↘</div>
+                        <div class="row">
+                            <div class="node" style="background: #2dd4bf; color: #000;">30</div><span style="font-size: 2rem;">+</span><div class="node pink">13</div>
+                        </div>
+                        <div class="final-result">43</div>
+                    </div>
+                </div>
+
+                <button class="expand-btn" onclick="toggleExpand(this)">
+                    <span>Show 3-Digit Example</span>
+                    <span>▶</span>
+                </button>
+
+                <!-- 3 DIGIT -->
+                <div class="practical-section digit-3 expandable">
+                    <div class="example-header">Problem: 280 + 150</div>
+                    <div class="graphic">
+                        <div class="row">
+                            <div class="node purple">280</div><span style="font-size: 2rem;">+</span><div class="node">150</div>
+                        </div>
+                        <div class="arrow"><span class="arrow-text">280 wants 20 to become a clean 300! Steal 20.</span>↙  ↘</div>
+                        <div class="row">
+                            <div class="node" style="background: #2dd4bf; color: #000;">300</div><span style="font-size: 2rem;">+</span><div class="node pink">130</div>
+                        </div>
+                        <div class="final-result">430</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Method 5 to 10 follow the same structure -->
+        <!-- Method 5 -->
+        <div class="trick-card">
+            <div class="theory-section">
+                <div class="trick-number">Method 05</div>
+                <div class="trick-title">The Nines Trick</div>
+                <div class="teacher-box">
+                    <p>"Adding 9, 19, or 99? It's just a 10, 20 or 100 in disguise. Add the disguise, and subtract 1."</p>
+                </div>
+            </div>
+            
+            <div class="examples-container">
+                <div class="practical-section digit-2">
+                    <div class="example-header">Problem: 64 + 19</div>
+                    <div class="graphic">
+                        <div class="node">64</div>
+                        <div class="node yellow" style="margin-top:10px;">+ 19 (Thinking: +20)</div>
+                        <div class="arrow">↓</div><div class="node">84</div>
+                        <div class="arrow"><span class="arrow-text">Sub 1</span>↓</div>
+                        <div class="final-result">83</div>
+                    </div>
+                </div>
+
+                <button class="expand-btn" onclick="toggleExpand(this)">
+                    <span>Show 3-Digit Example</span>
+                    <span>▶</span>
+                </button>
+
+                <div class="practical-section digit-3 expandable">
+                    <div class="example-header">Problem: 645 + 199</div>
+                    <div class="graphic">
+                        <div class="node">645</div>
+                        <div class="node yellow" style="margin-top:10px;">+ 199 (Thinking: +200)</div>
+                        <div class="arrow">↓</div><div class="node">845</div>
+                        <div class="arrow"><span class="arrow-text">Sub 1</span>↓</div>
+                        <div class="final-result">844</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Method 6 -->
+        <div class="trick-card">
+            <div class="theory-section">
+                <div class="trick-number">Method 06</div>
+                <div class="trick-title">Bridging Through Decade</div>
+                <div class="teacher-box">
+                    <p>"When jumping pushes you over into the next ten or hundred, split the jump. Jump to the 100 limit first, then add the rest."</p>
+                </div>
+            </div>
+            
+            <div class="examples-container">
+                <div class="practical-section digit-2">
+                    <div class="example-header">Problem: 57 + 8</div>
+                    <div class="graphic">
+                        <div class="arrow"><span class="arrow-text">57 + 3 gets you to 60. Remaining is 5.</span>↓</div>
+                        <div class="row">
+                            <div class="node purple">60</div><span style="font-size: 2rem;">+</span><div class="node">5</div>
+                        </div>
+                        <div class="final-result">65</div>
+                    </div>
+                </div>
+
+                <button class="expand-btn" onclick="toggleExpand(this)">
+                    <span>Show 3-Digit Example</span>
+                    <span>▶</span>
+                </button>
+
+                <div class="practical-section digit-3 expandable">
+                    <div class="example-header">Problem: 570 + 85</div>
+                    <div class="graphic">
+                        <div class="arrow"><span class="arrow-text">570 + 30 gets you to 600. Remaining is 55.</span>↓</div>
+                        <div class="row">
+                            <div class="node purple">600</div><span style="font-size: 2rem;">+</span><div class="node">55</div>
+                        </div>
+                        <div class="final-result">655</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Method 7 -->
+        <div class="trick-card">
+            <div class="theory-section">
+                <div class="trick-number">Method 07</div>
+                <div class="trick-title">Doubles & Near-Doubles</div>
+                <div class="teacher-box">
+                    <p>"We memorize doubles easily. If numbers are close, double the smaller number and add the difference!"</p>
+                </div>
+            </div>
+
+            <div class="examples-container">
+                <div class="practical-section digit-2">
+                    <div class="example-header">Problem: 25 + 27</div>
+                    <div class="graphic">
+                        <div class="arrow"><span class="arrow-text">Double 25 is 50. Add remaining 2.</span>↓</div>
+                        <div class="final-result">52</div>
+                    </div>
+                </div>
+
+                <button class="expand-btn" onclick="toggleExpand(this)">
+                    <span>Show 3-Digit Example</span>
+                    <span>▶</span>
+                </button>
+
+                <div class="practical-section digit-3 expandable">
+                    <div class="example-header">Problem: 250 + 260</div>
+                    <div class="graphic">
+                         <div class="arrow"><span class="arrow-text">Double 250 is 500. Add remaining 10.</span>↓</div>
+                        <div class="final-result">510</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Method 8 -->
+        <div class="trick-card">
+            <div class="theory-section">
+                <div class="trick-number">Method 08</div>
+                <div class="trick-title">Running Total Column Method</div>
+                <div class="teacher-box">
+                    <p>"When dealing with tall lists, keep a running total of the Tens/Hundreds first, then loop back for Ones. Don't bounce!"</p>
+                </div>
+            </div>
+            
+            <div class="examples-container">
+                <div class="practical-section digit-2">
+                    <div class="example-header">Problem: 12 + 34 + 21</div>
+                    <div class="graphic">
+                        <span style="font-size: 1.2rem; color:var(--accent-1);">Tens Pass: 10 + 30 + 20 = 60</span>
+                        <span style="font-size: 1.2rem; color:var(--accent-3);">Ones Pass: 2 + 4 + 1 = 7</span>
+                        <div class="final-result">67</div>
+                    </div>
+                </div>
+
+                <button class="expand-btn" onclick="toggleExpand(this)">
+                    <span>Show 3-Digit Example</span>
+                    <span>▶</span>
+                </button>
+
+                <div class="practical-section digit-3 expandable">
+                   <div class="example-header">Problem: 120 + 340 + 210</div>
+                    <div class="graphic">
+                        <span style="font-size: 1.2rem; color:var(--accent-2);">Hundreds Pass: 100 + 300 + 200 = 600</span>
+                        <span style="font-size: 1.2rem; color:var(--accent-1);">Tens Pass: 20 + 40 + 10 = 70</span>
+                         <span style="font-size: 1.2rem; color:var(--accent-3);">Ones Pass = 0</span>
+                        <div class="final-result">670</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+         <!-- Method 9 -->
+        <div class="trick-card">
+            <div class="theory-section">
+                <div class="trick-number">Method 09</div>
+                <div class="trick-title">Number Line Jumping</div>
+                <div class="teacher-box">
+                    <p>"For visual thinkers, imagine taking several big leaps of 10 or 100, followed by tiny hops."</p>
+                </div>
+            </div>
+            
+            <div class="examples-container">
+                <div class="practical-section digit-2">
+                     <div class="example-header">Problem: 42 + 34</div>
+                     <div class="graphic">
+                        <div class="arrow"><span class="arrow-text">Take 3 gigantic +10 jumps from 42 to hit 72. Then small +4 jump.</span>↓</div>
+                        <div class="final-result">76</div>
+                    </div>
+                </div>
+
+                <button class="expand-btn" onclick="toggleExpand(this)">
+                    <span>Show 3-Digit Example</span>
+                    <span>▶</span>
+                </button>
+
+                <div class="practical-section digit-3 expandable">
+                    <div class="example-header">Problem: 420 + 340</div>
+                     <div class="graphic">
+                        <div class="arrow"><span class="arrow-text">Take 3 gigantic +100 jumps from 420 to hit 720. Then a +40 jump.</span>↓</div>
+                        <div class="final-result">760</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Method 10 -->
+        <div class="trick-card">
+            <div class="theory-section">
+                <div class="trick-number">Method 10</div>
+                <div class="trick-title">Vedic Dot Method</div>
+                <div class="teacher-box">
+                    <p>"When adding single digits per column, drop a mental 'dot' every time you hit 10, keep the remainder. Count dots as carries!"</p>
+                </div>
+            </div>
+
+            <div class="examples-container">
+                <div class="practical-section digit-2">
+                     <div class="example-header">Problem: 8 + 6 + 7</div>
+                     <div class="graphic">
+                        <div class="arrow"><span class="arrow-text">8+6=14(One dot + 4). 4+7=11(One dot + 1). Two dots total + remaining 1.</span>↓</div>
+                        <div class="final-result">21</div>
+                    </div>
+                </div>
+
+                <button class="expand-btn" onclick="toggleExpand(this)">
+                    <span>Show 3-Digit Example</span>
+                    <span>▶</span>
+                </button>
+
+                <div class="practical-section digit-3 expandable">
+                     <div class="example-header">Problem: 80 + 60 + 70</div>
+                     <div class="graphic">
+                        <div class="arrow"><span class="arrow-text">Same as units! 8+6+7=21. But they are tens. Thus 210. </span>↓</div>
+                        <div class="final-result">210</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Method 11 -->
+        <div class="trick-card quickest-badge">
+            <div class="badge-tag" style="background:#2dd4bf;">Bonus 🚀</div>
+            <div class="theory-section">
+                <div class="trick-number">Method 11 (Bonus Magic)</div>
+                <div class="trick-title">The "Deviation" Averaging Trick</div>
+                <div class="teacher-box">
+                    <p>"Adding several numbers that are grouped around the same base? Pretend they are ALL that base number, then just tally up how much each number deviated from the base. It feels like absolute magic!"</p>
+                </div>
+            </div>
+
+            <div class="examples-container">
+                <div class="practical-section digit-2">
+                     <div class="example-header">Problem: 48 + 52 + 51 + 47</div>
+                     <div class="graphic">
+                        <div class="arrow"><span class="arrow-text">Base is 50. We have 4 numbers. 4 × 50 = 200.</span>↓</div>
+                        <div class="row">
+                            <div class="node yellow">48 (-2)</div>
+                            <div class="node yellow">52 (+2)</div>
+                            <div class="node yellow">51 (+1)</div>
+                            <div class="node yellow">47 (-3)</div>
+                        </div>
+                        <div class="arrow"><span class="arrow-text">Sum the deviations: -2 + 2 + 1 - 3 = -2</span>↓</div>
+                        <div class="row">
+                            <div class="node purple">200</div><span style="font-size: 2rem;">-</span><div class="node pink">2</div>
+                        </div>
+                        <div class="final-result">198</div>
+                    </div>
+                </div>
+
+                <button class="expand-btn" onclick="toggleExpand(this)">
+                    <span>Show 3-Digit Example</span>
+                    <span>▶</span>
+                </button>
+
+                <div class="practical-section digit-3 expandable">
+                     <div class="example-header">Problem: 503 + 498 + 505 + 495</div>
+                     <div class="graphic">
+                        <div class="arrow"><span class="arrow-text">Base is 500. We have 4 numbers. 4 × 500 = 2000.</span>↓</div>
+                         <div class="row" style="font-size: 1.2rem;">
+                            <div class="node yellow">(+3)</div>
+                            <div class="node yellow">(-2)</div>
+                            <div class="node yellow">(+5)</div>
+                            <div class="node yellow">(-5)</div>
+                        </div>
+                        <div class="arrow"><span class="arrow-text">Sum deviations: +3 - 2 + 5 - 5 = +1</span>↓</div>
+                        <div class="row">
+                             <div class="node purple">2000</div><span style="font-size: 2rem;">+</span><div class="node pink">1</div>
+                        </div>
+                        <div class="final-result">2001</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function toggleExpand(btn) {
+            const container = btn.closest('.examples-container');
+            const expandable = container.querySelector('.expandable');
+            
+            if (expandable.classList.contains('show')) {
+                expandable.classList.remove('show');
+                btn.classList.remove('active');
+                btn.innerHTML = '<span>Show 3-Digit Example</span><span>▶</span>';
+            } else {
+                expandable.classList.add('show');
+                btn.classList.add('active');
+                btn.innerHTML = '<span>Hide 3-Digit Example</span><span>▼</span>';
+            }
+        }
+    </script>
+</body>
+</html>
