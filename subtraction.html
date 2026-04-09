@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maths Subtraction Tricks</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0b1120;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --card-bg: #1e293b;
+            --accent-1: #f97316; /* Fiery Orange */
+            --accent-2: #818cf8; /* Purple */
+            --accent-3: #06b6d4; /* Cyan */
+            --accent-4: #fbbf24; /* Yellow */
+            --success: #34d399;  /* Green */
+        }
+
+        * { font-family: 'Outfit', sans-serif !important; }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(249, 115, 22, 0.1) 0 transparent 50%), 
+                radial-gradient(at 100% 100%, rgba(6, 182, 212, 0.1) 0 transparent 50%);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        header { text-align: center; padding: 5rem 2rem 2rem; position: relative; max-width: 800px; }
+
+        h1 {
+            font-size: 3.8rem; margin: 0;
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-3));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800; letter-spacing: -1.5px; line-height: 1.1;
+        }
+
+        p.subtitle { font-size: 1.25rem; color: var(--text-muted); margin-top: 1.5rem; line-height: 1.6; }
+
+        .container { max-width: 1100px; width: 92%; padding: 3rem 0 5rem 0; display: flex; flex-direction: column; gap: 2.5rem; }
+
+        .trick-card {
+            background-color: var(--card-bg); border-radius: 24px; padding: 3rem; position: relative;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 255, 255, 0.05);
+            overflow: hidden; display: grid; grid-template-columns: 1fr 1.2fr; gap: 3rem; transition: transform 0.3s ease;
+        }
+        .trick-card:hover { transform: translateY(-5px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        @media (max-width: 900px) { .trick-card { grid-template-columns: 1fr; padding: 2rem; gap: 2rem; } .split-branches { flex-direction: column; } }
+
+        .quickest-badge {
+            background: linear-gradient(145deg, #1e293b 0%, #3f1e14 100%);
+            border: 1px solid var(--accent-1); box-shadow: 0 0 30px rgba(249, 115, 22, 0.1);
+        }
+        .quickest-badge::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px;
+            background: linear-gradient(90deg, var(--accent-1), var(--accent-4));
+        }
+
+        .badge-tag {
+            position: absolute; top: 20px; right: -30px; background: var(--accent-1); color: #000;
+            font-weight: 800; padding: 8px 40px; transform: rotate(45deg); font-size: 0.9rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3); z-index: 10;
+        }
+
+        .theory-section { display: flex; flex-direction: column; justify-content: center; }
+        .trick-number { font-size: 1.2rem; color: var(--accent-3); font-weight: 800; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 2px; }
+        .trick-title { font-size: 2.2rem; font-weight: 800; margin-bottom: 1.5rem; color: #fff; line-height: 1.2; }
+
+        .teacher-box {
+            background: rgba(0, 0, 0, 0.3); border-radius: 16px; padding: 1.5rem; margin-top: 1rem;
+            position: relative; border-left: 4px solid var(--success);
+        }
+        .teacher-box p { margin: 0; font-size: 1.05rem; line-height: 1.6; color: #cbd5e1; font-style: italic; }
+        .teacher-box::before {
+            content: '👨‍🏫 Teacher says:'; display: block; font-weight: 800; font-style: normal; color: var(--success);
+            margin-bottom: 0.5rem; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px;
+        }
+
+        .examples-container { display: flex; flex-direction: column; gap: 1rem; }
+
+        .practical-section {
+            background: rgba(255, 255, 255, 0.03); border-radius: 20px; padding: 2rem;
+            display: flex; flex-direction: column; justify-content: center; border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .digit-3.expandable { display: none; }
+        .digit-3.expandable.show { display: flex; animation: fadeIn 0.4s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .expand-btn {
+            background: rgba(6, 182, 212, 0.1); color: var(--accent-3); border: 1px dashed var(--accent-3);
+            padding: 12px 20px; border-radius: 12px; cursor: pointer; font-size: 1rem; font-weight: 600;
+            transition: all 0.2s; display: flex; justify-content: space-between; align-items: center;
+        }
+        .expand-btn:hover { background: rgba(6, 182, 212, 0.2); transform: scale(1.02); }
+        .expand-btn.active { background: rgba(249, 115, 22, 0.1); color: var(--accent-1); border-color: var(--accent-1); }
+
+        .example-header { font-size: 1rem; color: var(--text-muted); margin-bottom: 1.5rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; text-align: center; }
+
+        .graphic { display: flex; flex-direction: column; align-items: center; font-size: 1.5rem; color: #fff; }
+        .row { display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 15px; flex-wrap: wrap; text-align: center; }
+        .node { background: var(--card-bg); border: 2px solid var(--accent-1); border-radius: 12px; padding: 10px 20px; font-weight: 800; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        .node.cyan { border-color: var(--accent-3); }
+        .node.purple { border-color: var(--accent-2); }
+        .node.yellow { border-color: var(--accent-4); }
+
+        .arrow { color: var(--text-muted); font-size: 1.2rem; display: flex; flex-direction: column; align-items: center; text-align: center;}
+        .arrow-text { font-size: 1.2rem; color: var(--accent-4); margin-bottom: -5px; }
+        .final-result { font-size: 3rem; font-weight: 800; color: var(--success); text-shadow: 0 0 20px rgba(52, 211, 153, 0.4); margin-top: 1rem; text-align:center; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Master Mental Subtraction</h1>
+        <p class="subtitle">6 Incredible teacher-tested methods. Eliminate "borrowing" forever. Learn the base concept and click the buttons to expand into 3-digit speed subtraction!</p>
+        <button id="globalExpandBtn" onclick="toggleAllExpand()" style="margin-top:2rem; padding: 12px 30px; background:linear-gradient(135deg, var(--accent-1), var(--accent-3)); color:#fff; border:none; border-radius:50px; font-size:1.1rem; font-weight:600; cursor:pointer; box-shadow: 0 5px 15px rgba(249, 115, 22, 0.3); transition:all 0.3s;">Expand All 3-Digit Previews ▼</button>
+    </header>
+
+    <div class="container">
+
+        <!-- Method 1 -->
+        <div class="trick-card quickest-badge">
+            <div class="badge-tag">Top Tier</div>
+            <div class="theory-section">
+                <div class="trick-number">Method 01 (Fastest)</div>
+                <div class="trick-title">Left-to-Right Subtraction</div>
+                <div class="teacher-box">
+                    <p>"Just like addition, stop subtracting from right to left! Subtracting the largest chunks first allows you to hold a running total in your head naturally without confusing carries."</p>
+                </div>
+            </div>
+            
+            <div class="examples-container">
+                <div class="practical-section digit-2">
+                    <div class="example-header">Problem: 84 - 36</div>
+                    <div class="graphic">
+                        <div class="row">
+                            <div class="node cyan">84</div><span style="font-size: 2rem;">-</span><div class="node">36</div>
+                        </div>
+                        <div class="arrow"><span class="arrow-text">1. Subtract the Tens (84 - 30)</span>↓</div>
+                        <div class="node yellow">54</div>
+                        <div class="arrow"><span class="arrow-text">2. Subtract the Units (54 - 6)</span>↓</div>
+                        <div class="final-result">48</div>
+                    </div>
+                </div>
+
+                <button class="expand-btn" onclick="toggleExpand(this)">
+                    <span>Show 3-Digit Example</span><span>▶</span>
+                </button>
+
+                <div class="practical-section digit-3 expandable">
+                    <div class="example-header">Problem: 845 - 362</div>
+                    <div class="graphic">
+                        <div class="row">
+                            <div class="node cyan">845</div><span style="font-size: 2rem;">-</span><div class="node">362</div>
+                        </div>
+                        <div class="arrow"><span class="arrow-text">1. Subtract Hundreds (845 - 300)</span>↓</div>
+                        <div class="node yellow">545</div>
+                        <div class="arrow"><span class="arrow-text">2. Subtract Tens (545 - 60)</span>↓</div>
+                        <div class="node purple">485</div>
+                        <div class="arrow"><span class="arrow-text">3. Subtract Units (485 - 2)</span>↓</div>
+                        <div class="final-result">483</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Method 2 -->
+        <div class="trick-card quickest-badge">
+            <div class="badge-tag">Top Tier</div>
+            <div class="theory-section">
+                <div class="trick-number">Method 02</div>
+                <div class="trick-title">Rounding & Adjusting (Over-Subtracting)</div>
+                <div class="teacher-box">
+                    <p>"When subtracting a number ending in 7, 8, or 9, round it UP to the nearest clean ten/hundred. Subtract it quickly, but wait! You subtracted too much. So you simply ADD the difference back!"</p>
+                </div>
+            </div>
+            
+            <div class="examples-container">
+                <div class="practical-section digit-2">
+                    <div class="example-header">Problem: 73 - 29</div>
+                    <div class="graphic">
+                        <div class="row">
+                            <div class="node cyan">73</div><span style="font-size: 2rem;">-</span><div class="node yellow">29</div>
+                        </div>
+                        <div class="arrow"><span class="arrow-text">Pretend it's 30! Subtract: 73 - 30</span>↓</div>
+                        <div class="node purple">43</div>
+                        <div class="arrow"><span class="arrow-text">You subtracted 1 too many! Add 1 back.</span>↓</div>
+                        <div class="final-result">44</div>
+                    </div>
+                </div>
+
+                <button class="expand-btn" onclick="toggleExpand(this)">
+                    <span>Show 3-Digit Example</span><span>▶</span>
+                </button>
+
+                <div class="practical-section digit-3 expandable">
+                    <div class="example-header">Problem: 730 - 299</div>
+                    <div class="graphic">
+                         <div class="row">
+                            <div class="node cyan">730</div><span style="font-size: 2rem;">-</span><div class="node yellow">299</div>
+                        </div>
+                        <div class="arrow"><span class="arrow-text">Pretend it's 300! Subtract: 730 - 300</span>↓</div>
+                        <div class="node purple">430</div>
+                        <div class="arrow"><span class="arrow-text">You subtracted 1 too many! Add 1 back.</span>↓</div>
+                        <div class="final-result">431</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Method 3 -->
+        <div class="trick-card">
+             <div class="theory-section">
+                <div class="trick-number">Method 03</div>
+                <div class="trick-title">The "Adding Up" Method</div>
+                <div class="teacher-box">
+                    <p>"You know what's easier than subtraction? Addition. Instead of calculating 82 - 37, ask yourself: 'How much do I need to ADD to 37 to get up to 82?' Find the gap!"</p>
+                </div>
+            </div>
+            
+            <div class="examples-container">
+                <div class="practical-section digit-2">
+                    <div class="example-header">Problem: 82 - 37</div>
+                    <div class="graphic">
+                         <div class="arrow"><span class="arrow-text">Start at 37. Add 3 to hit friendly 40.</span>↓</div>
+                         <div class="node cyan">+ 3</div>
+                         <div class="arrow"><span class="arrow-text">40 to 80 is a +40 margin. Add 40.</span>↓</div>
+                         <div class="node purple">+ 40</div>
+                         <div class="arrow"><span class="arrow-text">80 to 82. Add 2.</span>↓</div>
+                         <div class="node yellow">+ 2</div>
+                         <div class="arrow"><span class="arrow-text">Total distance traveled: 3 + 40 + 2</span>↓</div>
+                        <div class="final-result">45</div>
+                    </div>
+                </div>
+
+                <button class="expand-btn" onclick="toggleExpand(this)">
+                    <span>Show 3-Digit Example</span><span>▶</span>
+                </button>
+
+                <div class="practical-section digit-3 expandable">
+                    <div class="example-header">Problem: 820 - 370</div>
+                    <div class="graphic">
+                         <div class="arrow"><span class="arrow-text">From 370, add 30 to hit friendly 400.</span>↓</div>
+                         <div class="node cyan">+ 30</div>
+                         <div class="arrow"><span class="arrow-text">From 400 to 800, add 400.</span>↓</div>
+                         <div class="node purple">+ 400</div>
+                         <div class="arrow"><span class="arrow-text">From 800 to 820, add 20.</span>↓</div>
+                         <div class="node yellow">+ 20</div>
+                         <div class="arrow"><span class="arrow-text">Total distance: 30 + 400 + 20</span>↓</div>
+                        <div class="final-result">450</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Method 4 -->
+        <div class="trick-card">
+            <div class="theory-section">
+                <div class="trick-number">Method 04</div>
+                <div class="trick-title">Equal Addition / Constant Difference</div>
+                <div class="teacher-box">
+                    <p>"This is mental magic. The distance between (5 - 3) is 2. The distance between (5+10) and (3+10) is STILL 2! If you add the same number to BOTH halves of an equation, the subtraction answer stays identical. So, bump the bottom number up to a clean zero!"</p>
+                </div>
+            </div>
+            
+            <div class="examples-container">
+                <div class="practical-section digit-2">
+                    <div class="example-header">Problem: 84 - 36</div>
+                    <div class="graphic">
+                         <div class="arrow"><span class="arrow-text">36 is ugly. Let's make it 40 by adding 4.</span>↓</div>
+                         <div class="arrow"><span class="arrow-text">We must add 4 to BOTH numbers to balance it!</span>↓</div>
+                         <div class="row">
+                             <div class="node cyan">84 + 4 = 88</div>
+                             <div class="node yellow">36 + 4 = 40</div>
+                         </div>
+                         <div class="arrow"><span class="arrow-text">New Problem: 88 - 40</span>↓</div>
+                         <div class="final-result">48</div>
+                    </div>
+                </div>
+
+                <button class="expand-btn" onclick="toggleExpand(this)">
+                    <span>Show 3-Digit Example</span><span>▶</span>
+                </button>
+
+                <div class="practical-section digit-3 expandable">
+                    <div class="example-header">Problem: 845 - 360</div>
+                    <div class="graphic">
+                         <div class="arrow"><span class="arrow-text">360 is nasty. Let's make it 400 by adding 40!</span>↓</div>
+                         <div class="row">
+                             <div class="node cyan">845 + 40 = 885</div>
+                             <div class="node yellow">360 + 40 = 400</div>
+                         </div>
+                         <div class="arrow"><span class="arrow-text">New Problem: 885 - 400</span>↓</div>
+                         <div class="final-result">485</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+         <!-- Method 5 -->
+        <div class="trick-card quickest-badge">
+             <div class="badge-tag" style="background:var(--success);">Genius ⭐</div>
+             <div class="theory-section">
+                <div class="trick-number">Method 05</div>
+                <div class="trick-title">Vedic Complements (Zeros)</div>
+                <div class="teacher-box">
+                    <p>"Subtracting from large zero bases like 100, 1000, or 10,000 normally requires ugly cascading carries. Just use the Vedic rule: 'Subtract all from 9, and the last digit from 10'. Instant solution. No carries!"</p>
+                </div>
+            </div>
+            
+            <div class="examples-container">
+                <div class="practical-section digit-2">
+                    <div class="example-header">Problem: 100 - 43</div>
+                    <div class="graphic">
+                         <div class="arrow"><span class="arrow-text">First digit (4): Subtract from 9. (9 - 4 = 5)</span>↓</div>
+                         <div class="node cyan">5</div>
+                         <div class="arrow"><span class="arrow-text">Last digit (3): Subtract from 10. (10 - 3 = 7)</span>↓</div>
+                         <div class="node purple">7</div>
+                         <div class="arrow"><span class="arrow-text">Merge them!</span>↓</div>
+                        <div class="final-result">57</div>
+                    </div>
+                </div>
+
+                <button class="expand-btn" onclick="toggleExpand(this)">
+                    <span>Show 3-Digit Example</span><span>▶</span>
+                </button>
+
+                <div class="practical-section digit-3 expandable">
+                    <div class="example-header">Problem: 1000 - 436</div>
+                    <div class="graphic">
+                         <div class="arrow"><span class="arrow-text">First digit (4): 9 - 4 = 5</span>↓</div>
+                         <div class="node cyan">5</div>
+                         <div class="arrow"><span class="arrow-text">Middle digit (3): 9 - 3 = 6</span>↓</div>
+                         <div class="node purple">6</div>
+                         <div class="arrow"><span class="arrow-text">Last digit (6): Subtract from 10! (10 - 6 = 4)</span>↓</div>
+                         <div class="node yellow">4</div>
+                        <div class="final-result">564</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Method 6 -->
+        <div class="trick-card">
+             <div class="theory-section">
+                <div class="trick-number">Method 06</div>
+                <div class="trick-title">Breaking the Subtrahend</div>
+                <div class="teacher-box">
+                    <p>"If the bottom number is tricky, break it down (decompose it) into friendly bites. This allows you to subtract in piece-meal chunks instead of swallowing it whole."</p>
+                </div>
+            </div>
+            
+            <div class="examples-container">
+                <div class="practical-section digit-2">
+                    <div class="example-header">Problem: 72 - 35</div>
+                    <div class="graphic">
+                         <div class="arrow"><span class="arrow-text">Split 35 into 32 and 3. Why? Because 32 wipes out the 2 cleanly!</span>↓</div>
+                         <div class="row">
+                             <div class="node cyan">72 - 32 = 40</div>
+                         </div>
+                         <div class="arrow"><span class="arrow-text">Now subtract the remaining 3.</span>↓</div>
+                         <div class="row">
+                             <div class="node purple">40 - 3 = 37</div>
+                         </div>
+                        <div class="final-result">37</div>
+                    </div>
+                </div>
+
+                <button class="expand-btn" onclick="toggleExpand(this)">
+                    <span>Show 3-Digit Example</span><span>▶</span>
+                </button>
+
+                <div class="practical-section digit-3 expandable">
+                    <div class="example-header">Problem: 725 - 350</div>
+                    <div class="graphic">
+                        <div class="arrow"><span class="arrow-text">Split 350 into 325 and 25.</span>↓</div>
+                         <div class="row">
+                             <div class="node cyan">725 - 325 = 400</div>
+                         </div>
+                         <div class="arrow"><span class="arrow-text">Now subtract the remaining 25.</span>↓</div>
+                         <div class="row">
+                             <div class="node purple">400 - 25 = 375</div>
+                         </div>
+                        <div class="final-result">375</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <script>
+        function toggleExpand(btn) {
+            const container = btn.closest('.examples-container');
+            const expandable = container.querySelector('.expandable');
+            
+            if (expandable.classList.contains('show')) {
+                expandable.classList.remove('show');
+                btn.classList.remove('active');
+                btn.innerHTML = '<span>Show 3-Digit Example</span><span>▶</span>';
+            } else {
+                expandable.classList.add('show');
+                btn.classList.add('active');
+                btn.innerHTML = '<span>Hide 3-Digit Example</span><span>▼</span>';
+            }
+        }
+
+        let isAllExpanded = false;
+        function toggleAllExpand() {
+            isAllExpanded = !isAllExpanded;
+            const globalBtn = document.getElementById('globalExpandBtn');
+            globalBtn.innerHTML = isAllExpanded ? "Shrink All 3-Digit Previews ▲" : "Expand All 3-Digit Previews ▼";
+            
+            document.querySelectorAll('.expand-btn').forEach(btn => {
+                const container = btn.closest('.examples-container');
+                const expandable = container.querySelector('.expandable');
+                
+                if (isAllExpanded) {
+                    expandable.classList.add('show');
+                    btn.classList.add('active');
+                    btn.innerHTML = '<span>Hide 3-Digit Example</span><span>▼</span>';
+                } else {
+                    expandable.classList.remove('show');
+                    btn.classList.remove('active');
+                    btn.innerHTML = '<span>Show 3-Digit Example</span><span>▶</span>';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
